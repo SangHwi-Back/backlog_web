@@ -1,4 +1,4 @@
-import {TESTDATA, type TestData} from "@/pages/data";
+import {TESTDATA, type TestData} from "@/lib/data";
 import TableBody from "@/pages/TableBody";
 import {useEffect, useState} from "react";
 

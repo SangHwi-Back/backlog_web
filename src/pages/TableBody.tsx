@@ -1,6 +1,6 @@
 'use client';
 
-import { type TestData } from "@/pages/data";
+import { type TestData } from "@/lib/data";
 import Link from "next/link";
 
 export default function TableBody({data}: { data: TestData }) {

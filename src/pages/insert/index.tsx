@@ -1,5 +1,5 @@
 import CommonInput from "@/components/CommonInput";
-import {TestData, TESTDATA} from "@/pages/data";
+import {TestData, TESTDATA} from "@/lib/data";
 import {FormEvent, useRef} from "react";
 import {useRouter} from "next/navigation";
 

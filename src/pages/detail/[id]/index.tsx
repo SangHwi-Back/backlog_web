@@ -1,5 +1,5 @@
 import {usePathname} from "next/navigation";
-import {TESTDATA} from "@/pages/data";
+import {TESTDATA} from "@/lib/data";
 
 export default function Index() {
     const pathName = usePathname();
