@@ -3,7 +3,7 @@ import {TESTDATA} from "@/lib/data";
 
 export default function Index() {
     const pathName = usePathname();
-    const pathKey = pathName.split('/').pop();
+    const pathKey = pathName?.split('/').pop();
     const data = TESTDATA.find((data) => data.key.toString() === pathKey);
 
     if (!data) {
