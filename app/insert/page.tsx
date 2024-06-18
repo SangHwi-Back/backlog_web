@@ -1,9 +1,10 @@
-import CommonInput from "@/components/CommonInput";
-import {TestData, TESTDATA} from "@/lib/data";
+'use client';
+import {InsertRow} from "../lib/data";
+import CommonInput from "../components/CommonInput";
 import {FormEvent, useRef} from "react";
 import {useRouter} from "next/navigation";
 
-export default function Index() {
+export default function Page() {
     const formRef = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
@@ -12,17 +13,15 @@ export default function Index() {
 
         const title = formRef.current?.elements.namedItem('title')?.toString() ?? "";
         const description = formRef.current?.elements.namedItem('description')?.toString() ?? "";
-        const dateString = formRef.current?.elements.namedItem('date')?.toString();
+        const date = formRef.current?.elements.namedItem('date')?.toString() ?? "";
+        const time = formRef.current?.elements.namedItem('date')?.toString() ?? "";
+        const author = '';
 
-        let data: TestData = {
-            key: TESTDATA.length,
-            title: title,
-            description: description,
-            date: dateString ? new Date(dateString) : new Date()
-        };
-
-        TESTDATA.push(data);
-        router.push('/');
+        Promise.all([
+            InsertRow({title, description, date, time, author})
+        ]).then(() => {
+            router.push('/');
+        });
     }
 
     return (

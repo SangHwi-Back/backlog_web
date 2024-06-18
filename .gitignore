@@ -26,7 +26,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env.development.local
 
 # vercel
 .vercel
@@ -36,7 +36,8 @@ yarn-error.log*
 next-env.d.ts
 
 # local env files
-.env
+.env.development.local
 
 .idea
 package-lock.json
+.env*.local
