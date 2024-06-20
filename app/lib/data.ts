@@ -1,29 +1,6 @@
-'use server';
-
+import type { BlogRow, BlogRowData } from "./dto";
 import { sql } from "@vercel/postgres";
-import {UUID} from "node:crypto";
-
-export type BlogRow = {
-    key: UUID;
-    title: string;
-    date: string;
-    time: string;
-    author: string;
-}
-
-export type BlogRowData = {
-    key: UUID;
-    title: string;
-    description: string;
-    date: string;
-    time: string;
-    author: string;
-}
-
-export type ResultOfBlogRow = {
-    blogRow: BlogRow;
-    data: BlogRowData;
-}
+import { UUID } from "node:crypto";
 
 export async function Rows(): Promise<BlogRow[]> {
     try {

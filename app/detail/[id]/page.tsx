@@ -1,10 +1,10 @@
 'use client';
 
-import {type BlogRowData} from "../../lib/data";
-import {UUID} from "node:crypto";
-import {Row} from "../../lib/data";
-import {useSearchParams} from "next/navigation";
-import {useEffect, useState} from "react";
+import { type BlogRowData } from '../../lib/dto'
+import { UUID } from "node:crypto";
+import { Row } from "../../lib/data";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Page() {
     const id = useSearchParams().get('id') as UUID;

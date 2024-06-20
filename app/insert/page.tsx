@@ -1,6 +1,6 @@
 'use client';
 import {InsertRow} from "../lib/data";
-import CommonInput from "../components/CommonInput";
+import CommonInput from "../ui/CommonInput";
 import {FormEvent, useRef} from "react";
 import {useRouter} from "next/navigation";
 

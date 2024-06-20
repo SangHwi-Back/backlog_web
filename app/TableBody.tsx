@@ -1,8 +1,8 @@
 'use server';
 
-import {BlogRow} from "./lib/data";
+import type { BlogRow } from "./lib/dto";
 import Link from "next/link";
-import {UUID} from "node:crypto";
+import { UUID } from "node:crypto";
 
 export default async function TableBody({key, data}: {key: UUID, data: BlogRow}) {
     const className: string = 'text-center border-r-2 border-gray-500';
