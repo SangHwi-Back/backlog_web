@@ -6,7 +6,7 @@ export default async function BlogList() {
 
     return (
         <ul className="w-[800px] border">
-            {rows.map((item) => <BlogListItem  item={item}/>)}
+            {rows.map((item) => <BlogListItem key={item.key} item={item}/>)}
         </ul>
     )
 }
