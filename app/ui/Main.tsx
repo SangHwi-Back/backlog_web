@@ -8,11 +8,15 @@ export default function Main({children}: {children: ReactNode}) {
     return (
         <>
             <MainHeader/>
-            <main className={'w-screen flex py-8 justify-start'}>
-                <MainSideBar/>
-                {children}
+            <main className={'w-screen flex pt-1'}>
+                <div className={'w-[240px] flex-none'}>
+                    <MainSideBar/>
+                </div>
+                <div className={'flex-initial'}>
+                    {children}
+                </div>
             </main>
-            <footer>
+            <footer className={'mt-2 ml-2 mb-4'}>
                 <p className={'flex justify-items-start text-white'}>
                     Copyright &copy; {new Date().getFullYear()} All rights reserved.
                 </p>
