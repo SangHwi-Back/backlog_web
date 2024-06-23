@@ -35,9 +35,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local env files
-.env.development.local
-
 .idea
 package-lock.json
-.env*.local
+.env
