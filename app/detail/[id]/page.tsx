@@ -1,22 +1,22 @@
 'use client';
 
 import { type BlogRowData } from '../../lib/dto'
-import { UUID } from "node:crypto";
-import { Row } from "../../lib/data";
-import { useSearchParams } from "next/navigation";
+// import { UUID } from "node:crypto";
+// import { Row } from "../../lib/data";
+// import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
-    const id = useSearchParams().get('id') as UUID;
-    const [row, setRow] = useState<BlogRowData | null>(null);
+    // const id = useSearchParams().get('id') as UUID;
+    const [row, _] = useState<BlogRowData | null>(null);
 
     useEffect(() => {
-        const fetchRow = async () => {
-            return Row(id)
-        };
-        fetchRow().then((row) => {
-            setRow(row);
-        });
+        // const fetchRow = async () => {
+        //     return Row(id)
+        // };
+        // fetchRow().then((row) => {
+        //     setRow(row);
+        // });
     }, []);
 
     if (row == null) {

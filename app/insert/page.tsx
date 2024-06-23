@@ -1,27 +1,24 @@
 'use client';
-import {InsertRow} from "../lib/data";
 import CommonInput from "../ui/CommonInput";
 import {FormEvent, useRef} from "react";
-import {useRouter} from "next/navigation";
+// import {useRouter} from "next/navigation";
 
 export default function Page() {
     const formRef = useRef<HTMLFormElement>(null);
-    const router = useRouter();
+    // const router = useRouter();
 
     function insertTestData(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        // const title: string = formRef.current?.elements.namedItem('title')?.toString() ?? "",
+        //     description: string = formRef.current?.elements.namedItem('description')?.toString() ?? "",
+        //     date: string = formRef.current?.elements.namedItem('date')?.toString() ?? "",
+        //     time: string = formRef.current?.elements.namedItem('date')?.toString() ?? "", author: string = '';
 
-        const title = formRef.current?.elements.namedItem('title')?.toString() ?? "";
-        const description = formRef.current?.elements.namedItem('description')?.toString() ?? "";
-        const date = formRef.current?.elements.namedItem('date')?.toString() ?? "";
-        const time = formRef.current?.elements.namedItem('date')?.toString() ?? "";
-        const author = '';
-
-        Promise.all([
-            InsertRow({title, description, date, time, author})
-        ]).then(() => {
-            router.push('/');
-        });
+        // Promise.all([
+        //     InsertRow({title, description, date, time, author})
+        // ]).then(() => {
+        //     router.push('/');
+        // });
     }
 
     return (

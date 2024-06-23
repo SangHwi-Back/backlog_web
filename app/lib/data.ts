@@ -1,9 +1,11 @@
+import 'server-only';
 import type { BlogRow, BlogRowData } from "./dto";
 import { sql } from "@vercel/postgres";
 import { UUID } from "node:crypto";
 
 export async function Rows(): Promise<BlogRow[]> {
     try {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         const { rows } = await sql<BlogRow>`SELECT * FROM blogrow`;
         return rows;
     } catch (error) {
