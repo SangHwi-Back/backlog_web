@@ -1,31 +1,24 @@
 'use client';
+
 import CommonInput from "../ui/CommonInput";
-import {FormEvent, useRef} from "react";
-// import {useRouter} from "next/navigation";
+import {InsertParam, InsertRow} from "../lib/data";
+import {useFormState} from 'react-dom';
 
 export default function Page() {
-    const formRef = useRef<HTMLFormElement>(null);
-    // const router = useRouter();
-
-    function insertTestData(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        // const title: string = formRef.current?.elements.namedItem('title')?.toString() ?? "",
-        //     description: string = formRef.current?.elements.namedItem('description')?.toString() ?? "",
-        //     date: string = formRef.current?.elements.namedItem('date')?.toString() ?? "",
-        //     time: string = formRef.current?.elements.namedItem('date')?.toString() ?? "", author: string = '';
-
-        // Promise.all([
-        //     InsertRow({title, description, date, time, author})
-        // ]).then(() => {
-        //     router.push('/');
-        // });
-    }
+    const initialState: InsertParam = { message: null, errors: {} };
+    const [_, dispatch] = useFormState(InsertRow, initialState);
 
     return (
-        <form onSubmit={insertTestData} className={'w-[400px]'} ref={formRef}>
+        <form action={dispatch}>
             <label htmlFor="title">TITLE</label>
             <p className={'mb-4'}>
-                <CommonInput type={'text'} placeholder={'Title'} name={'title'} id={'title'} value={'test'}/>
+                <CommonInput
+                    type={'text'}
+                    placeholder={'Title'}
+                    name={'title'}
+                    id={'title'}
+                    defaultValue={'test'}
+                />
             </p>
             <label htmlFor="description">DESCRIPTION</label>
             <p className={'mb-4'}>
@@ -34,12 +27,8 @@ export default function Page() {
                     id={'description'}
                     name={'description'}
                     placeholder={'description'}
-                    value={'test'}
+                    defaultValue={'test'}
                 />
-            </p>
-            <label htmlFor="date">DATE</label>
-            <p>
-                <CommonInput type={'date'} placeholder={'DATE'} name={'date'} id={'date'}/>
             </p>
             <button type={'submit'}>Submit</button>
         </form>

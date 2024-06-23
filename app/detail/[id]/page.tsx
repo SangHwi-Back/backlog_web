@@ -1,33 +1,10 @@
-'use client';
+import {type BlogRowData} from '../../lib/dto'
+import {Row} from "../../lib/data";
 
-import { type BlogRowData } from '../../lib/dto'
-// import { UUID } from "node:crypto";
-// import { Row } from "../../lib/data";
-// import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-
-export default function Page() {
-    // const id = useSearchParams().get('id') as UUID;
-    const [row, _] = useState<BlogRowData | null>(null);
-
-    useEffect(() => {
-        // const fetchRow = async () => {
-        //     return Row(id)
-        // };
-        // fetchRow().then((row) => {
-        //     setRow(row);
-        // });
-    }, []);
-
-    if (row == null) {
-        return <div></div>;
-    }
-
-    const {
-        title,
-        description,
-        date
-    } = row;
+export default async function Page({params}: {params: {id: string}}) {
+    const id = params.id;
+    const row = await Row(id);
+    const {title, description, date} = row as BlogRowData;
 
     return (
         <div>
