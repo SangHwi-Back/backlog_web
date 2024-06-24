@@ -23,9 +23,8 @@ export async function Row(id: string): Promise<BlogRowData> {
         const { rows } = await sql<BlogRowData>`
             SELECT 
                 * 
-            FROM data_blogrow 
-            where 
-                key=${id}
+            FROM blogrow 
+            where key=${id}
         `;
         if (rows.length > 0) {
             return rows[0];
