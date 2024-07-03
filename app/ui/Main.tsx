@@ -9,7 +9,7 @@ export default function Main({children}: {children: ReactNode}) {
         <>
             <MainHeader/>
             <main className={'w-screen flex pt-1'}>
-                <div className={'w-[240px] flex-none'}>
+                <div className={'w-[180px] flex-none'}>
                     <MainSideBar/>
                 </div>
                 <div className={'flex-initial'}>

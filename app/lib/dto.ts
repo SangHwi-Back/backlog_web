@@ -6,6 +6,7 @@ export type BlogRow = {
     date: string;
     time: string;
     author: string;
+    tags: string[];
 }
 
 export type BlogRowData = {

@@ -4,14 +4,46 @@ import type { BlogRow, BlogRowData } from "./dto";
 import { sql } from "@vercel/postgres";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
+import {randomUUID} from "crypto";
 
-export async function Rows(): Promise<BlogRow[]> {
+// Function to generate a random word
+function randomWord() {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    let word = '';
+    const length = Math.floor(Math.random() * 5) + 3; // Word length between 3 and 7
+    for (let i = 0; i < length; i++) {
+        word += letters.charAt(Math.floor(Math.random() * letters.length));
+    }
+    return word;
+}
+
+// Function to generate a random date from the past year
+function randomDate() {
+    const current = new Date();
+    const past = new Date();
+    past.setFullYear(current.getFullYear() - 1);
+    return new Date(past.getTime() + Math.random() * (current.getTime() - past.getTime())).toISOString();
+}
+
+export async function Rows(page: number): Promise<BlogRow[]> {
     try {
-        const { rows } = await sql<BlogRow>`
-            SELECT 
-                * 
-            FROM blogrow
-        `;
+        // const { rows } = await sql<BlogRow>`
+        //     SELECT
+        //         *
+        //     FROM blogrow
+        // `;
+
+        const rows: BlogRow[] = Array
+            .from({ length: 20 }, () => ({
+                key: randomUUID(),
+                title: Array.from({ length: 5 }, randomWord).join(' '),
+                date: randomDate(),
+                time: randomDate(),
+                author: Array.from({ length: 2 }, randomWord).join(' '),
+                tags: Array.from({ length: Math.floor(Math.random() * 3) + 3 }, randomWord),
+            }))
+            .slice((page - 1) * 5, page * 5);
+
         return rows;
     } catch (error) {
         throw error;
