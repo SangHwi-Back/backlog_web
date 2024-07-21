@@ -5,6 +5,7 @@ import { sql } from "@vercel/postgres";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {randomUUID} from "crypto";
+import {UUID} from "node:crypto";
 
 // Function to generate a random word
 function randomWord() {
@@ -27,11 +28,9 @@ function randomDate() {
 
 export async function Rows(page: number): Promise<BlogRow[]> {
     try {
-        // const { rows } = await sql<BlogRow>`
-        //     SELECT
-        //         *
-        //     FROM blogrow
-        // `;
+        if (page < 0) {
+            return [];
+        }
 
         const rows: BlogRow[] = Array
             .from({ length: 20 }, () => ({
@@ -42,7 +41,7 @@ export async function Rows(page: number): Promise<BlogRow[]> {
                 author: Array.from({ length: 2 }, randomWord).join(' '),
                 tags: Array.from({ length: Math.floor(Math.random() * 3) + 3 }, randomWord),
             }))
-            .slice((page - 1) * 5, page * 5);
+            .slice((page) * 6, (page + 1) * 6);
 
         return rows;
     } catch (error) {
@@ -52,17 +51,26 @@ export async function Rows(page: number): Promise<BlogRow[]> {
 
 export async function Row(id: string): Promise<BlogRowData> {
     try {
-        const { rows } = await sql<BlogRowData>`
-            SELECT 
-                * 
-            FROM blogrow 
-            where key=${id}
-        `;
-        if (rows.length > 0) {
-            return rows[0];
-        } else {
-            revalidatePath('/');
-            redirect('/');
+        // const { rows } = await sql<BlogRowData>`
+        //     SELECT
+        //         *
+        //     FROM blogrow
+        //     where key=${id}
+        // `;
+        // if (rows.length > 0) {
+            // return rows[0];
+        // } else {
+        //     revalidatePath('/');
+        //     redirect('/');
+        // }
+
+        return {
+            key: id as UUID,
+            title: 'title is title',
+            description: 'description is description...',
+            date: '2024-07-15',
+            time: '22:28',
+            author: 'me',
         }
     } catch (error) {
         throw error;

@@ -12,7 +12,7 @@ export default function Main({children}: {children: ReactNode}) {
                 <div className={'w-[180px] flex-none'}>
                     <MainSideBar/>
                 </div>
-                <div className={'flex-initial'}>
+                <div>
                     {children}
                 </div>
             </main>

@@ -10,10 +10,10 @@ export default async function BlogList() {
     const rows: BlogRow[] = await Rows(1);
 
     return <Suspense fallback={<LoadingBlogList/>}>
-        <ul className="w-screen">
+        <div className={'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4'}>
             {rows.map((item) => (
                 <BlogListItem key={item.key} item={item}/>
             ))}
-        </ul>
+        </div>
     </Suspense>
 }
