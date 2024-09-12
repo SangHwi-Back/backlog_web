@@ -32,6 +32,7 @@ export async function Rows(page: number): Promise<BlogRow[]> {
             return [];
         }
 
+        // noinspection UnnecessaryLocalVariableJS
         const rows: BlogRow[] = Array
             .from({ length: 20 }, () => ({
                 key: randomUUID(),
@@ -44,6 +45,15 @@ export async function Rows(page: number): Promise<BlogRow[]> {
             .slice((page) * 6, (page + 1) * 6);
 
         return rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function RowNumbers(): Promise<number> {
+    try {
+        let remainder = 20 % 6 > 0 ? 1 : 0;
+        return Math.floor(20 / 6) + remainder;
     } catch (error) {
         throw error;
     }

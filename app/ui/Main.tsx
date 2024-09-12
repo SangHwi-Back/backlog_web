@@ -1,13 +1,103 @@
 'use client';
 
-import MainHeader from "./MainHeader";
 import MainSideBar from "./MainSideBar";
-import {ReactNode} from "react";
+import {ReactNode, useState} from "react";
+import {
+    AppBar,
+    Box,
+    Button,
+    Container,
+    CssBaseline, Drawer,
+    IconButton, List, ListItem, ListItemButton, ListItemText, Stack,
+    Toolbar, Typography,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
-export default function Main({children}: {children: ReactNode}) {
+function BlogAppBar() {
+    const theme = useTheme();
+    const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const handleDrawerToggle = () => {
+        setMobileOpen((prevState) => !prevState);
+    }
+
+    const menus = ['iOS', 'FE', 'CS', "Books"]
+
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
+            <List>
+                {menus.map((item) => (
+                    <ListItem key={item}>
+                        <ListItemButton sx={{textAlign: 'center'}}>
+                            <ListItemText primary={item}/>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    )
+
+    return (
+        <AppBar
+            position="static"
+            component={isXs ? 'nav' : 'div'}
+            sx={{
+                top: isXs ? 'auto' : 0,
+                bottom: isXs ? 0 : 'auto'
+            }}
+        >
+            {isXs
+                ? <Container maxWidth={'xs'}>
+                    <Toolbar>
+                        <Typography variant={'h6'}>
+                            <IconButton
+                                color={'inherit'}
+                                aria-label={'open drawer'}
+                                edge={'start'}
+                                onClick={handleDrawerToggle}
+                                sx={{mr: 2, display: {sm: 'block'}}}
+                            >
+                                <MenuIcon/>
+                            </IconButton>
+                        </Typography>
+                    </Toolbar>
+                    <nav>
+                        <Drawer
+                            variant="temporary"
+                            open={mobileOpen}
+                            onClose={handleDrawerToggle}
+                            ModalProps={{
+                                keepMounted: true, // Better open performance on mobile.
+                            }}
+                            sx={{
+                                display: {xs: 'block', sm: 'none'},
+                                '& .MuiDrawer-paper': {boxSizing: 'border-box', width: 240},
+                            }}
+                        >
+                            {drawer}
+                        </Drawer>
+                    </nav>
+                </Container>
+                : <Container maxWidth="lg" sx={{backgroundColor: 'transparent'}}>
+                    <Stack spacing={2} direction={'row'} sx={{m: 1}}>
+                        <Button variant={'contained'} size={'small'} color={'inherit'}>iOS</Button>
+                        <Button variant={'contained'} size={'small'} color={'inherit'}>FE</Button>
+                        <Button variant={'contained'} size={'small'} color={'inherit'}>CS</Button>
+                        <Button variant={'contained'} size={'small'} color={'inherit'}>Books</Button>
+                    </Stack>
+                </Container>}
+        </AppBar>
+    )
+}
+
+export default function Main({children}: { children: ReactNode }) {
     return (
         <>
-            <MainHeader/>
+            <CssBaseline/>
+            <BlogAppBar/>
             <main className={'w-screen flex pt-1'}>
                 <div className={'w-[180px] flex-none'}>
                     <MainSideBar/>
