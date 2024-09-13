@@ -1,6 +1,5 @@
 'use client';
 
-import MainSideBar from "./MainSideBar";
 import {ReactNode, useState} from "react";
 import {
     AppBar,
@@ -14,6 +13,8 @@ import {
     useTheme
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import Pagings from "./Pagings";
+import {right} from "@popperjs/core";
 
 function BlogAppBar() {
     const theme = useTheme();
@@ -63,6 +64,16 @@ function BlogAppBar() {
                                 <MenuIcon/>
                             </IconButton>
                         </Typography>
+                        <Box sx={{
+                            display: {
+                                xs: 'flex', sm: 'flex'
+                            },
+                            flexGrow: 1,
+                            justifyContent: right,
+                            height: 'inherit'
+                        }}>
+                            <Pagings />
+                        </Box>
                     </Toolbar>
                     <nav>
                         <Drawer
@@ -98,14 +109,7 @@ export default function Main({children}: { children: ReactNode }) {
         <>
             <CssBaseline/>
             <BlogAppBar/>
-            <main className={'w-screen flex pt-1'}>
-                <div className={'w-[180px] flex-none'}>
-                    <MainSideBar/>
-                </div>
-                <div>
-                    {children}
-                </div>
-            </main>
+            <div>{children}</div>
             <footer className={'mt-2 ml-2 mb-4'}>
                 <p className={'flex justify-items-start text-white'}>
                     Copyright &copy; {new Date().getFullYear()} All rights reserved.

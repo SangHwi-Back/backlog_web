@@ -4,16 +4,22 @@ import {Rows} from "../lib/data";
 import BlogListItem from "./BlogListItem";
 import {BlogRow} from "../lib/dto";
 import LoadingBlogList from "./LoadingBlogList";
-import {Suspense} from "react";
+import React, {Suspense} from "react";
+import Grid from "@mui/material/Grid2";
+import {Box} from "@mui/material";
 
 export default async function BlogList() {
     const rows: BlogRow[] = await Rows(1);
 
     return <Suspense fallback={<LoadingBlogList/>}>
-        <div className={'grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-4'}>
+        <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
             {rows.map((item) => (
-                <BlogListItem key={item.key} item={item}/>
+                <Grid key={item.key} size={{xs: 6, md: 4}}>
+                    <BlogListItem item={item}/>
+                </Grid>
             ))}
-        </div>
+        </Grid>
+        </Box>
     </Suspense>
 }
