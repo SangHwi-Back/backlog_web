@@ -1,15 +1,16 @@
 import {ReactNode} from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import {Container, Stack} from "@mui/material";
 
 export default function Layout({children}: {children: ReactNode}) {
     return (
         <>
-            <div className={'w-1/5 h-full rounded border-2 border-amber-100 p-8 flow'}>
-                <p>This is NavBar</p>
-            </div>
-            <div>
+            <Stack direction={'row'} spacing={2} sx={{pl: 2, flexGrow: 'inherit'}} maxWidth={'lg'}>
+            <MenuIcon/>
+            <Container maxWidth={false}>
                 {children}
-            </div>
+            </Container>
+            </Stack>
         </>
-
     )
 }
