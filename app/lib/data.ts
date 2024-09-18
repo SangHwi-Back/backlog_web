@@ -1,7 +1,7 @@
 'use server';
 import {z} from 'zod';
-import type { BlogRow, BlogRowData } from "./dto";
-import { sql } from "@vercel/postgres";
+import type {BlogRow, BlogRowData} from "./dto";
+import {sql} from "@vercel/postgres";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {randomUUID} from "crypto";
@@ -24,6 +24,22 @@ function randomDate() {
     const past = new Date();
     past.setFullYear(current.getFullYear() - 1);
     return new Date(past.getTime() + Math.random() * (current.getTime() - past.getTime())).toISOString();
+}
+
+export async function GetTwelveRows(): Promise<BlogRow[]> {
+    try {
+        return Array
+            .from({length: 12}, () => ({
+                key: randomUUID(),
+                title: Array.from({length: 5}, randomWord).join(' '),
+                date: randomDate(),
+                time: randomDate(),
+                author: Array.from({length: 2}, randomWord).join(' '),
+                tags: Array.from({length: Math.floor(Math.random() * 3) + 3}, randomWord),
+            }));
+    } catch (error) {
+        throw error;
+    }
 }
 
 export async function Rows(page: number): Promise<BlogRow[]> {

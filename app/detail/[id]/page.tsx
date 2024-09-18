@@ -10,10 +10,10 @@ export default async function Page({params}: {params: {id: string}}) {
     return (
         <div>
             <Card variant={'outlined'} sx={{flexGrow: 'inherit'}}>
-                    <Stack direction={'row'} sx={{justifyContent: 'space-between', px:2, pt:2}}>
-                        <Typography gutterBottom={true} variant={'h3'} component={'div'}>{title}</Typography>
-                        <Typography gutterBottom={true} variant={'h6'} component={'div'}>{date}</Typography>
-                    </Stack>
+                <Stack direction={'row'} sx={{justifyContent: 'space-between', px:2, pt:2}}>
+                    <Typography gutterBottom={true} variant={'h3'} component={'div'}>{title}</Typography>
+                    <Typography gutterBottom={true} variant={'h6'} component={'div'}>{date}</Typography>
+                </Stack>
             </Card>
             <Divider/>
             <Box sx={{mt: 0.5, mb: 1, overflowX: 'auto'}}>
