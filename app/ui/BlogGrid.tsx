@@ -5,6 +5,7 @@ import { useSwipeable } from 'react-swipeable';
 import {BlogRow} from "../lib/dto";
 import {Box, Button, Stack} from "@mui/material";
 import BlogListItem from "./BlogListItem";
+import ReduxCounter from "./ReduxCounter";
 
 enum Direction {
     left, right
@@ -88,6 +89,7 @@ export default function BlogGrid(props: {swipeContents: BlogRow[]}) {
     });
 
     return <Box sx={{width: '100%', justifyContent: 'center'}} >
+        <ReduxCounter/>
         <Stack direction={'row'}>
             <SwipeButton state={state} direction={Direction.left} onSwiped={slide}/>
             <div className={'grid grid-cols-2 gap-4 '} {...handlers}>

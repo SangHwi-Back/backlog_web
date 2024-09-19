@@ -1,6 +1,7 @@
 import './ui/globals.css';
 import {ReactNode} from "react";
 import {Metadata} from "next";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
     title: "BLOG",
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: ReactNode}) {
     return (
         <html>
-            <body>
-                {children}
-            </body>
+            <Providers>
+                <body>{children}</body>
+            </Providers>
         </html>
     )
 }
