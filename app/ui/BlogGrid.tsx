@@ -24,24 +24,29 @@ type CarouselAction =
     | { type: Direction }
     | { type: 'stopSliding' };
 
-const getInitialState = (swipeContents: BlogRow[]): CarouselState => ({
+const getInitialState = (swipeContents: BlogRow[], pos: number): CarouselState => ({
     allContents: swipeContents,
-    contents: swipeContents.slice(0, 3),
+    contents: swipeContents.slice((pos-1)*3, 3),
     sliding: false,
     dir: Direction.right,
-    pos: 1,
+    pos: pos,
     isEnabled: (direction: Direction) => {
         if (swipeContents.length === 0) return false;
+        const newPos = pos + (direction === Direction.left ? -1 : 1);
 
-        const contents = swipeContents.slice(0, 3);
+        if (newPos < 0 || newPos >= swipeContents.length) {
+            return false;
+        }
+
+        const contents = swipeContents.slice((newPos-1)*3, 3);
         const firstItemKey = swipeContents[0].key,
               lastItemKey = swipeContents[swipeContents.length - 1].key;
 
         switch (direction) {
             case Direction.left:
-                return contents.findIndex((item) => item.key == firstItemKey) !== -1
+                return contents.findIndex((item) => item.key == firstItemKey) === -1
             case Direction.right:
-                return contents.findIndex((item) => item.key == lastItemKey) !== -1
+                return contents.findIndex((item) => item.key == lastItemKey) === -1
         }
     }
 });
@@ -64,7 +69,7 @@ function SwipeButton({ state, direction, onSwiped } : {
 }
 
 export default function BlogGrid(props: {swipeContents: BlogRow[]}) {
-    const [state, dispatch] = useReducer(reducer, getInitialState(props.swipeContents));
+    const [state, dispatch] = useReducer(reducer, getInitialState(props.swipeContents, 1));
 
     const slide = (dir: Direction) => {
         dispatch({ type: dir });
