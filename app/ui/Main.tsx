@@ -1,6 +1,6 @@
 'use client';
 
-import {ReactNode, useState} from "react";
+import {ReactNode, Suspense, useState} from "react";
 import {
     AppBar,
     Box,
@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Pagings from "./Pagings";
-import {right} from "@popperjs/core";
 
 function BlogAppBar() {
     const theme = useTheme();
@@ -69,10 +68,12 @@ function BlogAppBar() {
                                 xs: 'flex', sm: 'flex'
                             },
                             flexGrow: 1,
-                            justifyContent: right,
+                            justifyContent: 'right',
                             height: 'inherit'
                         }}>
-                            <Pagings />
+                            <Suspense fallback={<div>wait</div>}>
+                                <Pagings />
+                            </Suspense>
                         </Box>
                     </Toolbar>
                     <nav>

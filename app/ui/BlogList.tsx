@@ -16,7 +16,7 @@ export default async function BlogList() {
         <Grid container spacing={2}>
             {rows.map((item) => (
                 <Grid key={item.key} size={{xs: 6, md: 4}}>
-                    <BlogListItem item={item}/>
+                    <BlogListItem itemKey={item.key} title={item.title}/>
                 </Grid>
             ))}
         </Grid>

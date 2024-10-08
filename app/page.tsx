@@ -6,9 +6,7 @@ import Image from "next/image";
 import testImage from "./ui/images/testImage.jpg";
 import BlogGrid from "./ui/BlogGrid";
 import {GetTwelveRows} from "./lib/data";
-import {Provider} from "react-redux";
-import {store} from "./store/store";
-import React from "react";
+import React, {Suspense} from "react";
 
 async function fetchSwipeContents() {
     return await GetTwelveRows();
@@ -47,7 +45,9 @@ function MainBottomArea() {
         <Box sx={{ flexGrow: 1 }}>
             <BlogList/>
         </Box>
-        <Pagings/>
+        <Suspense fallback={<div>wait</div>}>
+            <Pagings/>
+        </Suspense>
     </>
 }
 

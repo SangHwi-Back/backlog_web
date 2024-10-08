@@ -10,8 +10,8 @@ export default async function LoadingBlogList() {
 
     return (
         <ul className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {rows.map((item) => (
-                <BlogListItem key={item.key} item={item}/>
+            {rows.map((item, index) => (
+                <BlogListItem key={index} itemKey={item.key} title={item.title}/>
             ))}
         </ul>
     )
