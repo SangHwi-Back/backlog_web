@@ -8,7 +8,7 @@ export default async function BlogGridPage(props: { contents: BlogRow[] }) {
             <Grid container spacing={2}>
                 {props.contents.map((item) => (
                     <Grid key={item.key} size={6}>
-                        <BlogListItem item={item}/>
+                        <BlogListItem itemKey={item.key} title={item.title}/>
                     </Grid>
                 ))}
             </Grid>
