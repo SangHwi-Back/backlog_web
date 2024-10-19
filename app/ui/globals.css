@@ -6,6 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --navBarHeight: 56px;
+  --thumbnailHeight: 320px;
+  --menuBarHeight: 56px;
+  --stickyMarginTop: calc(var(--navBarHeight) + var(--thumbnailHeight));
 }
 
 @media (prefers-color-scheme: dark) {

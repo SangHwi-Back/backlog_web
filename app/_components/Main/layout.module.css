@@ -1,0 +1,117 @@
+.body {
+    overflow: auto;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.navigationBar {
+    height: var(--navBarHeight);
+    background-color: blue;
+    display: flex;
+    position: sticky;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.stickyNavigation {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: blue; /* 또는 원하는 배경색 */
+}
+
+.stickyMenu {
+    position: sticky;
+    top: var(--menuBarHeight); /* MainNavigationBar의 높이에 따라 조정 */
+    z-index: 999;
+    background-color: orange; /* 또는 원하는 배경색 */
+}
+
+.thumbnail {
+    height: 350px;
+    background-color: darkgray;
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.menuBar {
+    height: var(--menuBarHeight);
+    top: var(--menuBarHeight);
+    position: sticky;
+    display: flex;
+    justify-content: space-around;
+    
+}
+.menuBar .item {
+    flex: 1;
+    height: var(--menuBarHeight);
+    background-color: darkgray;
+    color: black;
+}
+.menuBar .itemSelected {
+    flex: 1;
+    height: var(--menuBarHeight);
+    background-color: gray;
+    color: black;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 120px;
+    background-color: black;
+    padding: 10px;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.iconWithText {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    background-color: #aaa;
+    margin-right: 8px;
+    padding-right: 5px;
+}
+
+.content {
+    flex: 1;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+.content::-webkit-scrollbar {
+    display: none;
+}
+.container {
+    overflow-y: scroll;
+}
+.contains:has(.content:focus-within) .thumbnail {
+    height: 0;
+    opacity: 0;
+    transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 40px;
+    }
+
+    .iconWithText span {
+        display: none;
+    }
+}
