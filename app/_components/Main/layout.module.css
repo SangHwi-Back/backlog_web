@@ -1,33 +1,29 @@
 .body {
+    width: 100dvw;
     overflow: auto;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-}
-
-.navigationBar {
-    height: var(--navBarHeight);
-    background-color: blue;
-    display: flex;
-    position: sticky;
-    top: 0;
-    align-items: center;
-    justify-content: center;
 }
 
 .stickyNavigation {
+    display: block;
     position: sticky;
     top: 0;
+    height: var(--navBarHeight);
     z-index: 1000;
-    background-color: blue; /* 또는 원하는 배경색 */
 }
 
-.stickyMenu {
+.navigationBar {
+    height: inherit;
+    display: flex;
     position: sticky;
-    top: var(--menuBarHeight); /* MainNavigationBar의 높이에 따라 조정 */
-    z-index: 999;
-    background-color: orange; /* 또는 원하는 배경색 */
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigationBar button {
+    padding: 0 12px;
 }
 
 .thumbnail {
@@ -38,25 +34,36 @@
     transition: opacity 0.3s ease, height 0.3s ease;
 }
 
-.menuBar {
+.stickyMenu {
+    position: sticky;
+    top: var(--navBarHeight); /* MainNavigationBar의 높이에 따라 조정 */
+    z-index: 999;
     height: var(--menuBarHeight);
-    top: var(--menuBarHeight);
+}
+
+.menuBar {
+    height: inherit;
     position: sticky;
     display: flex;
     justify-content: space-around;
-    
 }
 .menuBar .item {
     flex: 1;
     height: var(--menuBarHeight);
     background-color: darkgray;
     color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .menuBar .itemSelected {
     flex: 1;
     height: var(--menuBarHeight);
     background-color: gray;
+    display: flex;
     color: black;
+    align-items: center;
+    justify-content: center;
 }
 
 .main {
@@ -82,7 +89,6 @@
 .icon {
     width: 20px;
     height: 20px;
-    background-color: #aaa;
     margin-right: 8px;
     padding-right: 5px;
 }
@@ -113,5 +119,21 @@
 
     .iconWithText span {
         display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .thumbnail {
+        display: none;
+    }
+}
+
+@media (min-width: 420px) {
+    .stickyNavigation {
+        display: none;
+    }
+
+    .stickyMenu {
+        top: 0;
     }
 }

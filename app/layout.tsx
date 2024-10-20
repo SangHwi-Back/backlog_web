@@ -17,8 +17,8 @@ export default function RootLayout({ children, modal }: Props) {
     <Providers>
       <MainLayout>
         { children }
-        { modal }
       </MainLayout>
+      { modal }
     </Providers>
     </html>
   )

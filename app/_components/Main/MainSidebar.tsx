@@ -21,7 +21,7 @@ export default function MainSidebar() {
       {items.map((Element, index) => {
         return (
           <div key={index} className={style.iconWithText}>
-            <Element.icon/>
+            <Element.icon className={style.icon}/>
             <span>{Element.name}</span>
           </div>
         );

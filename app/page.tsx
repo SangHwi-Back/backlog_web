@@ -1,6 +1,5 @@
 import BlogList from "./ui/BlogList";
-import Main from "./ui/Main";
-import Pagings from "./ui/Pagings";
+// import Pagings from "./ui/Pagings";
 import {Box} from "@mui/material";
 import Image from "next/image";
 import testImage from "./ui/images/testImage.jpg";
@@ -46,17 +45,17 @@ function MainBottomArea() {
             <BlogList/>
         </Box>
         <Suspense fallback={<div>wait</div>}>
-            <Pagings/>
+            {/*<Pagings/>*/}
         </Suspense>
     </>
 }
 
 export default async function Page() {
     return (
-        <Main>
+        <>
             <MainTopArea />
             <MainMiddleArea />
             <MainBottomArea />
-        </Main>
+        </>
     )
 }

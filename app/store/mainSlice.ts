@@ -3,10 +3,12 @@ import {MainMenu} from "../_components/Main/MainMenuBar";
 
 export interface MainSlice {
   selectedMenu: MainMenu
+  isMobile: boolean
 }
 
 const initialState: MainSlice = {
-  selectedMenu: MainMenu.ios
+  selectedMenu: 0,
+  isMobile: false,
 };
 
 export const mainSlice = createSlice({
@@ -16,11 +18,15 @@ export const mainSlice = createSlice({
     setMainMenu: (state, action: PayloadAction<MainMenu>) => {
       state.selectedMenu = action.payload;
     },
+    setIsMobile: (state, action: PayloadAction<boolean>) => {
+      state.isMobile = action.payload;
+    }
   },
 });
 
 export const {
   setMainMenu,
+  setIsMobile
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

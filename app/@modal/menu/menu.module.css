@@ -1,0 +1,31 @@
+.menu {
+    position: fixed;
+    top: 10px;
+    width: 100dvw;
+    height: 100dvh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5%);
+}
+
+.contents {
+    width: 80dvw;
+    background-color: #fff;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.contents ul {
+    width: 80%;
+    padding: 10px;
+}
+.contents ul li {
+    padding-bottom: 10px;
+}
+.contents ul li .icon {
+    width: 20px; height: 20px;
+}
+.list:hover {
+    cursor: pointer;
+}
