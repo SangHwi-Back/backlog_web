@@ -16,6 +16,7 @@
     "@fontsource/roboto": "^5.0.15",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
+    "@mui/types": "^7.2.18",
     "@reduxjs/toolkit": "^2.2.7",
     "@vercel/postgres": "^0.8.0",
     "classnames": "^2.5.1",
