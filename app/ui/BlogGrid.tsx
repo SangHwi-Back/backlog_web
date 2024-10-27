@@ -3,9 +3,8 @@
 import {useReducer} from "react";
 import { useSwipeable } from 'react-swipeable';
 import {BlogRow} from "../lib/dto";
-import {Box, Button, Stack} from "@mui/material";
+import {Box, Stack} from "@mui/material";
 import BlogListItem from "./BlogListItem";
-import ReduxCounter from "./ReduxCounter";
 
 enum Direction {
     left, right
@@ -51,22 +50,22 @@ const getInitialState = (swipeContents: BlogRow[], pos: number): CarouselState =
     }
 });
 
-function SwipeButton({ state, direction, onSwiped } : {
-    state: CarouselState,
-    direction: Direction,
-    onSwiped: (dir: Direction) => void
-}) {
-    return <Button variant={'contained'}
-                   size={'small'}
-                   sx={{height: '70%'}}
-                   color={'inherit'}
-                   onClick={() => {
-                       if (!state.isEnabled(direction)) return;
-                       onSwiped(direction);
-                   }}>
-        {direction === Direction.left ? 'Left' : 'Right'}
-    </Button>
-}
+// function SwipeButton({ state, direction, onSwiped } : {
+//     state: CarouselState,
+//     direction: Direction,
+//     onSwiped: (dir: Direction) => void
+// }) {
+//     return <Button variant={'contained'}
+//                    size={'small'}
+//                    sx={{height: '70%'}}
+//                    color={'inherit'}
+//                    onClick={() => {
+//                        if (!state.isEnabled(direction)) return;
+//                        onSwiped(direction);
+//                    }}>
+//         {direction === Direction.left ? 'Left' : 'Right'}
+//     </Button>
+// }
 
 export default function BlogGrid(props: {swipeContents: BlogRow[]}) {
     const [state, dispatch] = useReducer(reducer, getInitialState(props.swipeContents, 1));
@@ -94,16 +93,16 @@ export default function BlogGrid(props: {swipeContents: BlogRow[]}) {
     });
 
     return <Box sx={{width: '100%', justifyContent: 'center'}} >
-        <ReduxCounter/>
+        {/*<ReduxCounter/>*/}
         <Stack direction={'row'}>
-            <SwipeButton state={state} direction={Direction.left} onSwiped={slide}/>
+            {/*<SwipeButton state={state} direction={Direction.left} onSwiped={slide}/>*/}
             <div className={'grid grid-cols-2 gap-4 '} {...handlers}>
                 {state.contents.map((item: BlogRow) => (
                     // eslint-disable-next-line react/jsx-key
                     <BlogListItem key={item.key} itemKey={item.key} title={item.title} /> // Key defined in item(BlogRow).
                 ))}
             </div>
-            <SwipeButton state={state} direction={Direction.right} onSwiped={slide}/>
+            {/*<SwipeButton state={state} direction={Direction.right} onSwiped={slide}/>*/}
         </Stack>
     </Box>
 }

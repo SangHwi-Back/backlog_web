@@ -1,0 +1,32 @@
+.background {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    border-radius: 15px;
+    gap: 10px;
+}
+
+.inTextField {
+    margin: 10px 0 10px 10px;
+    align-self: center;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+}
+
+.inTextField:focus {
+    border-bottom: 1px solid #000;
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.searchIcon {
+    margin-right: 10px;
+    align-self: center;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}

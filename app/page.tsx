@@ -1,42 +1,21 @@
 import BlogList from "./ui/BlogList";
 // import Pagings from "./ui/Pagings";
 import {Box} from "@mui/material";
-import Image from "next/image";
-import testImage from "./ui/images/testImage.jpg";
 import BlogGrid from "./ui/BlogGrid";
 import {GetTwelveRows} from "./lib/data";
 import React, {Suspense} from "react";
+import MainTopArea from "./_components/Main/Top/MainTopArea";
 
 async function fetchSwipeContents() {
     return await GetTwelveRows();
 }
 
-function MainTopArea() {
-    return <Box display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                maxWidth={'lg'}>
-        <Box sx={{ width: '50%' }}>
-            <Image src={testImage}
-                   alt={'testImage'}
-                   width={0}
-                   height={0}
-                   sizes={'100vw'}
-                   style={{ width: '100%', height: 'auto'}}
-            />
-        </Box>
-    </Box>
-}
-
 async function MainMiddleArea() {
     const swipeContents = await fetchSwipeContents();
-
-    return <Box display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                maxWidth={'lg'}>
+    
+    return <div>
         <BlogGrid swipeContents={swipeContents}/>
-    </Box>
+    </div>
 }
 
 function MainBottomArea() {
@@ -52,10 +31,10 @@ function MainBottomArea() {
 
 export default async function Page() {
     return (
-        <>
-            <MainTopArea />
-            <MainMiddleArea />
-            <MainBottomArea />
-        </>
+      <>
+          <MainTopArea />
+          <MainMiddleArea />
+          <MainBottomArea />
+      </>
     )
 }
