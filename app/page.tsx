@@ -1,40 +1,41 @@
 import BlogList from "./ui/BlogList";
-// import Pagings from "./ui/Pagings";
+import PagingComponent from "./ui/PagingComponent";
 import {Box} from "@mui/material";
-import BlogGrid from "./ui/BlogGrid";
-import {GetTwelveRows} from "./lib/data";
+// import BlogGrid from "./ui/BlogGrid";
+import {RowNumbers} from "./lib/data";
 import React, {Suspense} from "react";
-import MainTopArea from "./_components/Main/Top/MainTopArea";
+import ContentsTopArea from "./_components/Main/Top/MainTopArea";
 
-async function fetchSwipeContents() {
-    return await GetTwelveRows();
-}
+// async function fetchSwipeContents() {
+//   return await GetTwelveRows();
+// }
 
-async function MainMiddleArea() {
-    const swipeContents = await fetchSwipeContents();
-    
-    return <div>
-        <BlogGrid swipeContents={swipeContents}/>
-    </div>
-}
+// async function ContentsMiddleArea() {
+//   const swipeContents = await fetchSwipeContents();
+//
+//   return <div>
+//     <BlogGrid swipeContents={swipeContents}/>
+//   </div>
+// }
 
-function MainBottomArea() {
-    return <>
-        <Box sx={{ flexGrow: 1 }}>
-            <BlogList/>
-        </Box>
-        <Suspense fallback={<div>wait</div>}>
-            {/*<Pagings/>*/}
-        </Suspense>
-    </>
+async function ContentsBottomArea() {
+  const number = await RowNumbers();
+  return <>
+    <Box sx={{flexGrow: 1}}>
+      <BlogList/>
+    </Box>
+    <Suspense fallback={<div style={{height: '24px'}}>wait</div>}>
+      <PagingComponent rowNumber={number}/>
+    </Suspense>
+  </>
 }
 
 export default async function Page() {
-    return (
-      <>
-          <MainTopArea />
-          <MainMiddleArea />
-          <MainBottomArea />
-      </>
-    )
+  return (
+    <>
+      <ContentsTopArea />
+      {/*<ContentsMiddleArea />*/}
+      <ContentsBottomArea />
+    </>
+  )
 }

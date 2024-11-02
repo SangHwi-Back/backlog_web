@@ -9,16 +9,17 @@ export const metadata: Metadata = {
   description: "Welcome to backlog!"
 }
 
-type Props = { children: ReactNode, modal: ReactNode };
+type Props = { children: ReactNode, modal: ReactNode, toast: ReactNode };
 
-export default function RootLayout({ children, modal }: Props) {
+export default function RootLayout({ children, modal, toast }: Props) {
   return (
     <html>
     <Providers>
       <MainLayout>
         { children }
+        { modal }
+        { toast }
       </MainLayout>
-      { modal }
     </Providers>
     </html>
   )

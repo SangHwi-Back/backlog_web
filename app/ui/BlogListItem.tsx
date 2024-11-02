@@ -22,7 +22,7 @@ export default function BlogListItem({itemKey, title}: {
         setShowSettings(!showSettings);
     }
 
-    return <div className={'rounded shadow-inner shadow-white w-[320px]'}>
+    return <div className={'rounded shadow-inner shadow-white w-[320px] text-black'}>
         <div className={'p-5'}>
             <Link href={`/detail/${itemKey}`}>
                 <p className={'font-bold text-lg'}>{title}</p>
