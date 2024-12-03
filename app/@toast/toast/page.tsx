@@ -1,8 +1,8 @@
 'use client';
 
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../store/store";
-import {setToastData} from "../store/mainSlice";
+import {RootState} from "../../store/store";
+import {setToastData} from "../../store/mainSlice";
 
 export type ToastData = {
   title: string | null;
@@ -37,7 +37,8 @@ export default function ToastPage() {
       fontSize: '2rem',
       gap: '5px',
       textAlign: 'center',
-      opacity: 0.2
+      opacity: 0.2,
+      position: 'absolute',
     }}
   >
     {titleNode()}

@@ -1,0 +1,6 @@
+.background {
+    background-color: #f7f5f2;
+    flex: 1;
+    flex-direction: column;
+    color: black;
+}

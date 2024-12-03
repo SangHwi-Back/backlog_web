@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {MainMenu} from "../_components/Main/MainMenuBar";
-import {ToastData} from "../@toast/page";
+import {ToastData} from "../@toast/toast/page";
 
 export interface MainSlice {
   selectedMenu: MainMenu
