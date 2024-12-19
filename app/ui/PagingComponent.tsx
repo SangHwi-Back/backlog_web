@@ -20,7 +20,7 @@ export default function PagingComponent({rowNumber}: { rowNumber: number }) {
     }
     
     return <>
-        <div style={{display: 'flex', gap: '5px'}}>
+        <div style={{display: 'flex', gap: '5px', justifyContent: 'center', margin: 10}}>
             <button style={{color: 'black'}} onClick={() => onButtonClicked(currentPage - 1)}>{'<'}</button>
             {Array.from({length: rowNumber}, (_, i) => {
                 const pageNumber = i + 1;

@@ -1,10 +1,9 @@
 import BlogList from "./ui/BlogList";
 import PagingComponent from "./ui/PagingComponent";
-import {Box} from "@mui/material";
-// import BlogGrid from "./ui/BlogGrid";
 import {RowNumbers} from "./lib/data";
 import React, {Suspense} from "react";
 import ContentsTopArea from "./_components/Main/Top/MainTopArea";
+import styles from './root.module.css';
 
 // async function fetchSwipeContents() {
 //   return await GetTwelveRows();
@@ -21,9 +20,9 @@ import ContentsTopArea from "./_components/Main/Top/MainTopArea";
 async function ContentsBottomArea() {
   const number = await RowNumbers();
   return <>
-    <Box sx={{flexGrow: 1}}>
+    <div className={styles.blogListArea}>
       <BlogList/>
-    </Box>
+    </div>
     <Suspense fallback={<div style={{height: '24px'}}>wait</div>}>
       <PagingComponent rowNumber={number}/>
     </Suspense>
