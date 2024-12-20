@@ -8,6 +8,7 @@ const nextConfig = {
     const prod = process.env.NODE_ENV === 'production';
     return {
       ...config,
+      cache: false,
       mode: prod ? 'production' : 'development',
       devtool: prod ? 'hidden-source-map' : 'eval',
       plugins: [...config.plugins],

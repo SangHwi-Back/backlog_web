@@ -11,18 +11,6 @@ import testImage from "./images/testImage.jpg";
 
 function Item(props: {item: BlogRow}) {
     const {key, title} = props.item;
-    // const [isGood, setIsGood] = useState(false);
-    // const [showSettings, setShowSettings] = useState(false);
-    
-    // noinspection JSUnusedLocalSymbols
-    // function toggleGoodFlag() {
-    //     setIsGood(!isGood);
-    // }
-    
-    // noinspection JSUnusedLocalSymbols
-    // function toggleSettings() {
-    //     setShowSettings(!showSettings);
-    // }
     
     return <div className={styles.gridItemView}>
         <Link href={`/detail/${key}`}>
