@@ -2,7 +2,6 @@
 
 import {Rows} from "../lib/data";
 import {BlogRow} from "../lib/dto";
-import LoadingBlogList from "./LoadingBlogList";
 import React, {Suspense} from "react";
 import styles from './blogList.module.css';
 import Link from "next/link";
@@ -23,7 +22,7 @@ function Item(props: {item: BlogRow}) {
 export default async function BlogList() {
     const rows: BlogRow[] = await Rows(1);
     
-    return <Suspense fallback={<LoadingBlogList/>}>
+    return <Suspense fallback={<div/>}>
         <div className={styles.localGrid}>
             {rows.map((item) => <Item key={item.key} item={item}/>)}
         </div>

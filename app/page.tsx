@@ -1,9 +1,10 @@
 import BlogList from "./ui/BlogList";
 import PagingComponent from "./ui/PagingComponent";
-import {RowNumbers} from "./lib/data";
+import {RowNumbers, Rows} from "./lib/data";
 import React, {Suspense} from "react";
 import ContentsTopArea from "./_components/Main/Top/MainTopArea";
 import styles from './root.module.css';
+import BlogGrid from "./ui/BlogGrid";
 
 // async function fetchSwipeContents() {
 //   return await GetTwelveRows();
@@ -19,7 +20,11 @@ import styles from './root.module.css';
 
 async function ContentsBottomArea() {
   const number = await RowNumbers();
+  const rows = await Rows(0);
   return <>
+    <div className={styles.blogListArea}>
+      <BlogGrid swipeContents={rows}/>
+    </div>
     <div className={styles.blogListArea}>
       <BlogList/>
     </div>
@@ -32,7 +37,7 @@ async function ContentsBottomArea() {
 export default async function Page() {
   return (
     <>
-      <ContentsTopArea />
+    <ContentsTopArea />
       {/*<ContentsMiddleArea />*/}
       <ContentsBottomArea />
     </>

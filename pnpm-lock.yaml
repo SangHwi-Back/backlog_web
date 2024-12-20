@@ -47,9 +47,6 @@ importers:
       react-redux:
         specifier: ^9.1.2
         version: 9.1.2(@types/react@18.3.3)(react@18.3.1)(redux@5.0.1)
-      react-swipeable:
-        specifier: ^7.0.1
-        version: 7.0.1(react@18.3.1)
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
@@ -1732,11 +1729,6 @@ packages:
         optional: true
       redux:
         optional: true
-
-  react-swipeable@7.0.1:
-    resolution: {integrity: sha512-RKB17JdQzvECfnVj9yDZsiYn3vH0eyva/ZbrCZXZR0qp66PBRhtg4F9yJcJTWYT5Adadi+x4NoG53BxKHwIYLQ==}
-    peerDependencies:
-      react: ^16.8.3 || ^17 || ^18
 
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
@@ -3925,10 +3917,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
       redux: 5.0.1
-
-  react-swipeable@7.0.1(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   react-transition-group@4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
