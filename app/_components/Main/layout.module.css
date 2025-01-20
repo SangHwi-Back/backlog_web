@@ -1,17 +1,8 @@
-.body {
-    width: 100dvw;
-    overflow: auto;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-}
-
 .stickyNavigation {
     display: block;
     position: sticky;
     top: 0;
     height: var(--navBarHeight);
-    z-index: 1000;
 }
 
 .navigationBar {
@@ -37,7 +28,6 @@
 .stickyMenu {
     position: sticky;
     top: var(--navBarHeight); /* MainNavigationBar의 높이에 따라 조정 */
-    z-index: 999;
     height: var(--menuBarHeight);
 }
 

@@ -9,7 +9,7 @@ type Props = { children: ReactNode };
 
 export default function MainLayout({ children }: Props) {
   return (
-    <body className={style.body}>
+    <div>
       <div className={style.stickyNavigation}>
         {/*Navigation*/} <MainNavigationBar/>
       </div>
@@ -25,7 +25,7 @@ export default function MainLayout({ children }: Props) {
         </main>
       </div>
       {/*------------Contents------------*/}
-    </body>
+    </div>
   );
 };
 

@@ -1,22 +1,9 @@
 import BlogList from "./ui/BlogList";
 import PagingComponent from "./ui/PagingComponent";
 import {Box} from "@mui/material";
-// import BlogGrid from "./ui/BlogGrid";
 import {RowNumbers} from "./lib/data";
 import React, {Suspense} from "react";
 import ContentsTopArea from "./_components/Main/Top/MainTopArea";
-
-// async function fetchSwipeContents() {
-//   return await GetTwelveRows();
-// }
-
-// async function ContentsMiddleArea() {
-//   const swipeContents = await fetchSwipeContents();
-//
-//   return <div>
-//     <BlogGrid swipeContents={swipeContents}/>
-//   </div>
-// }
 
 async function ContentsBottomArea() {
   const number = await RowNumbers();
@@ -34,7 +21,6 @@ export default async function Page() {
   return (
     <>
       <ContentsTopArea />
-      {/*<ContentsMiddleArea />*/}
       <ContentsBottomArea />
     </>
   )
