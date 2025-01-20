@@ -2,8 +2,10 @@ import {type BlogRowData} from '../../lib/dto'
 import {Row} from "../../lib/data";
 import styles from "./page.module.css";
 
-export default async function Page({params}: {params: {id: string}}) {
-    const id = params.id;
+type Params = Promise<{ id: string }>
+
+export default async function Page({params}: {params: Params}) {
+    const { id } = await params;
     const row = await Row(id);
     const {title, date} = row as BlogRowData;
 

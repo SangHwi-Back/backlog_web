@@ -20,12 +20,12 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@vercel/postgres": "^0.8.0",
     "classnames": "^2.5.1",
-    "next": "14.2.10",
+    "next": "15.1.1",
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.2",
-    "react-swipeable": "^7.0.1",
     "server-only": "^0.0.1",
+    "sharp": "^0.33.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {

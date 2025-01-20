@@ -27,6 +27,7 @@ export default function SwappableGrid<T>({ items, renderItem }: SwappableGridPro
     setIsDragging(false);
   };
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging || !gridRef.current) {
       return;
@@ -51,7 +52,7 @@ export default function SwappableGrid<T>({ items, renderItem }: SwappableGridPro
         grid.removeEventListener('mouseleave', handleMouseUp);
       }
     };
-  }, [isDragging, startX, scrollLeft]);
+  }, [isDragging, startX, scrollLeft, handleMouseMove]);
   
   return (
     <div className={styles.gridContainer} ref={gridRef} onMouseDown={handleMouseDown}>

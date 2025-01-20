@@ -1,128 +1,56 @@
 'use client';
 
-import {useReducer} from "react";
-import { useSwipeable } from 'react-swipeable';
 import {BlogRow} from "../lib/dto";
-import {Box, Stack} from "@mui/material";
-import BlogListItem from "./BlogListItem";
-
-enum Direction {
-    left, right
-}
-
-interface CarouselState {
-    allContents: BlogRow[],
-    contents: BlogRow[];
-    sliding: boolean;
-    dir: Direction;
-    pos: number;
-    readonly isEnabled:(direction: Direction) => boolean;
-}
-
-type CarouselAction =
-    | { type: Direction }
-    | { type: 'stopSliding' };
-
-const getInitialState = (swipeContents: BlogRow[], pos: number): CarouselState => ({
-    allContents: swipeContents,
-    contents: swipeContents.slice((pos-1)*3, 3),
-    sliding: false,
-    dir: Direction.right,
-    pos: pos,
-    isEnabled: (direction: Direction) => {
-        if (swipeContents.length === 0) return false;
-        const newPos = pos + (direction === Direction.left ? -1 : 1);
-
-        if (newPos < 0 || newPos >= swipeContents.length) {
-            return false;
-        }
-
-        const contents = swipeContents.slice((newPos-1)*3, 3);
-        const firstItemKey = swipeContents[0].key,
-              lastItemKey = swipeContents[swipeContents.length - 1].key;
-
-        switch (direction) {
-            case Direction.left:
-                return contents.findIndex((item) => item.key == firstItemKey) === -1
-            case Direction.right:
-                return contents.findIndex((item) => item.key == lastItemKey) === -1
-        }
-    }
-});
-
-// function SwipeButton({ state, direction, onSwiped } : {
-//     state: CarouselState,
-//     direction: Direction,
-//     onSwiped: (dir: Direction) => void
-// }) {
-//     return <Button variant={'contained'}
-//                    size={'small'}
-//                    sx={{height: '70%'}}
-//                    color={'inherit'}
-//                    onClick={() => {
-//                        if (!state.isEnabled(direction)) return;
-//                        onSwiped(direction);
-//                    }}>
-//         {direction === Direction.left ? 'Left' : 'Right'}
-//     </Button>
-// }
+import styles from "./blogList.module.css";
+import Link from "next/link";
+import Image from "next/image";
+import testImage from "./images/testImage.jpg";
+import {TouchEventHandler, useState} from "react";
 
 export default function BlogGrid(props: {swipeContents: BlogRow[]}) {
-    const [state, dispatch] = useReducer(reducer, getInitialState(props.swipeContents, 1));
-
-    const slide = (dir: Direction) => {
-        dispatch({ type: dir });
-        setTimeout(() => {
-            dispatch({ type: "stopSliding" })
-        }, 50);
-    };
-
-    const handlers = useSwipeable({
-        onSwipedLeft: () => {
-            if (state.isEnabled(Direction.left) === false) return;
-            slide(Direction.left);
-        },
-        onSwipedRight: () => {
-            if (state.isEnabled(Direction.right) === false) return;
-            slide(Direction.right);
-        },
-        swipeDuration: 500,
-        preventScrollOnSwipe: true,
-        trackTouch: true,
-        trackMouse: true,
-    });
-
-    return <Box sx={{width: '100%', justifyContent: 'center'}} >
-        {/*<ReduxCounter/>*/}
-        <Stack direction={'row'}>
-            {/*<SwipeButton state={state} direction={Direction.left} onSwiped={slide}/>*/}
-            <div className={'grid grid-cols-2 gap-4 '} {...handlers}>
-                {state.contents.map((item: BlogRow) => (
-                    // eslint-disable-next-line react/jsx-key
-                    <BlogListItem key={item.key} itemKey={item.key} title={item.title} /> // Key defined in item(BlogRow).
-                ))}
-            </div>
-            {/*<SwipeButton state={state} direction={Direction.right} onSwiped={slide}/>*/}
-        </Stack>
-    </Box>
-}
-
-function reducer(state: CarouselState, action: CarouselAction): CarouselState {
-    const posFactor = action.type === Direction.left ? -1 : (action.type === Direction.right ? 1 : 0);
-    const newPos = state.pos + posFactor;
-    switch (action.type) {
-        case Direction.left:
-        case Direction.right:
-            return {
-                ...state,
-                dir: action.type,
-                sliding: true,
-                pos: newPos,
-                contents: state.allContents.slice(newPos * 4, (newPos * 4) + 3),
-            };
-        case 'stopSliding':
-            return { ...state, sliding: false };
-        default:
-            return state;
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+    
+    const minSwipeDistance = 50;
+    
+    const onTouchStart: TouchEventHandler<HTMLDivElement> = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
     }
+    
+    const onTouchMove: TouchEventHandler<HTMLDivElement> = (e) => setTouchEnd(e.targetTouches[0].clientX);
+    
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) {
+            return;
+        }
+        
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance < -minSwipeDistance;
+        const isRightSwipe = distance > minSwipeDistance;
+        
+        if (isLeftSwipe || isRightSwipe) {
+            console.log('swipe', isLeftSwipe ? 'left' : 'right');
+        }
+    }
+    
+    function Item(props: {item: BlogRow}) {
+        const {key, title} = props.item;
+        
+        return <div className={styles.gridItemView}>
+            <Link href={`/detail/${key}`}>
+                <p className={styles.gridItemTitle}>{title}</p>
+                <Image src={testImage} alt={'testImage'} className={styles.blogThumbnail}/>
+            </Link>
+        </div>;
+    }
+
+    return <div style={{width: '100%', justifyContent: 'center', display: 'flex'}}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}>
+        <div className={styles.innerLocalGrid}>
+            {props.swipeContents.map((item: BlogRow) => <Item key={item.key} item={item}/>)}
+        </div>
+    </div>
 }
