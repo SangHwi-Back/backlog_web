@@ -1,36 +1,66 @@
 'use client';
 
-import CommonInput from "../ui/CommonInput";
 import {InsertParam, InsertRow} from "../lib/data";
-import {useFormState} from 'react-dom';
+import React, {useRef, useActionState, useEffect} from 'react';
+import Form from "next/form";
+import styles from './insert.module.css';
 
 export default function Page() {
-    const initialState: InsertParam = { message: null, errors: {} };
-    const [_, dispatch] = useFormState(InsertRow, initialState);
+  const initialState: InsertParam = { message: null, errors: {} };
+  const [_, dispatch] = useActionState(InsertRow, initialState);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    const adjustHeight = () => {
+      if (textAreaRef.current) {
+        textAreaRef.current.style.height = 'auto';
+        textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+      }
+    };
+
+    adjustHeight();
+
+    const textAreaElement = textAreaRef.current;
+    if (textAreaElement) {
+      textAreaElement.addEventListener('input', adjustHeight);
+    }
+
+    return () => {
+      if (textAreaElement) {
+        textAreaElement.removeEventListener('input', adjustHeight);
+      }
+    };
+  }, []);
+
+  function Padding() {
     return (
-        <form action={dispatch}>
-            <label htmlFor="title">TITLE</label>
-            <p className={'mb-4'}>
-                <CommonInput
-                    type={'text'}
-                    placeholder={'Title'}
-                    name={'title'}
-                    id={'title'}
-                    defaultValue={'test'}
-                />
-            </p>
-            <label htmlFor="description">DESCRIPTION</label>
-            <p className={'mb-4'}>
-                <textarea
-                    className={'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}
-                    id={'description'}
-                    name={'description'}
-                    placeholder={'description'}
-                    defaultValue={'test'}
-                />
-            </p>
-            <button type={'submit'}>Submit</button>
-        </form>
+      <div className={styles.padding}></div>
     )
+  }
+  
+  return (
+    <div className={styles.background}>
+      <Form action={dispatch} className={styles.form}>
+        <Padding />
+        <input name={'title'}
+               id={'title'}
+               type='text'
+               placeholder={'제목을 입력하세요'}/>
+        <label htmlFor="description">DESCRIPTION</label>
+        <Padding />
+        <textarea
+          ref={textAreaRef}
+          className={styles.textArea}
+          id={'description'}
+          name={'description'}
+          placeholder={'당신의 이야기를 적어보세요...'}
+        />
+        <Padding />
+        <button type={'submit'}>Submit</button>
+      </Form>
+      <div className={styles.preview}>
+      
+      </div>
+    </div>
+  )
 }
