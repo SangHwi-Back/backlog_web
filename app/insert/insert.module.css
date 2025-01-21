@@ -1,10 +1,16 @@
 .background {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.title {
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .textArea {
-    box-shadow: #808080 1px 1px 1px;
+    /*box-shadow: #808080 1px 1px 1px;*/
     margin: 2px 12px;
     color: #909090;
     resize: none;
@@ -26,7 +32,12 @@
     flex: 0.5;
 }
 
+.divider {
+    width: 1px;
+    background-color: rgba(211, 211, 211, 0.2);
+    height: 100dvh;
+}
+
 .preview {
-    background-color: blue;
     flex: 0.5;
 }

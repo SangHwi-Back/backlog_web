@@ -1,15 +1,17 @@
 'use client';
 
 import {InsertParam, InsertRow} from "../lib/data";
-import React, {useRef, useActionState, useEffect} from 'react';
+import React, {useRef, useActionState, useEffect, useState} from 'react';
 import Form from "next/form";
 import styles from './insert.module.css';
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 export default function Page() {
   const initialState: InsertParam = { message: null, errors: {} };
   const [_, dispatch] = useActionState(InsertRow, initialState);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
+  const [contents, setContents] = useState('');
+  
   useEffect(() => {
     const adjustHeight = () => {
       if (textAreaRef.current) {
@@ -43,6 +45,7 @@ export default function Page() {
       <Form action={dispatch} className={styles.form}>
         <Padding />
         <input name={'title'}
+               className={styles.title}
                id={'title'}
                type='text'
                placeholder={'제목을 입력하세요'}/>
@@ -54,12 +57,15 @@ export default function Page() {
           id={'description'}
           name={'description'}
           placeholder={'당신의 이야기를 적어보세요...'}
+          value={contents}
+          onChange={(e) => setContents(e.target.value)}
         />
         <Padding />
         <button type={'submit'}>Submit</button>
       </Form>
+      <div className={styles.divider}/>
       <div className={styles.preview}>
-      
+        <MarkdownPreview source={contents}/>
       </div>
     </div>
   )
