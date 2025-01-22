@@ -1,0 +1,35 @@
+.background {
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    align-items: center;
+    margin-inline: 15px;
+}
+
+.backgroundBetween {
+    justify-content: space-between;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.buttonArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    cursor: pointer;
+}
+
+.buttonArea > img {
+    width: 20px;
+    height: 20px;
+}
+
+.buttonArea > p {
+    color: #000000;
+}
