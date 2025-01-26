@@ -29,5 +29,7 @@ export async function PageContents({ selectedCategory }: Props) {
 }
 
 export default async function Page() {
-  return <PageContents />;
+  return <div>
+    <PageContents />
+  </div>;
 }
