@@ -16,6 +16,22 @@
     gap: 10px;
 }
 
+.subMenuArea {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.subMenuArea > .selected {
+    color: #000000;
+    cursor: pointer;
+}
+.subMenuArea > .deselected {
+    color: #909090;
+    cursor: pointer;
+}
+
 .buttonArea {
     display: flex;
     flex-direction: column;

@@ -5,11 +5,11 @@ import {RowNumbers} from "./lib/data";
 import React, {Suspense} from "react";
 import ContentsTopArea from "./_components/Main/Top/MainTopArea";
 
-async function ContentsBottomArea() {
+async function ContentsBottomArea(param: {selectedCategory: number | undefined}) {
   const number = await RowNumbers();
   return <>
     <Box sx={{flexGrow: 1}}>
-      <BlogList/>
+      <BlogList selectedCategory={param.selectedCategory}/>
     </Box>
     <Suspense fallback={<div style={{height: '24px'}}>wait</div>}>
       <PagingComponent rowNumber={number}/>
@@ -17,11 +17,13 @@ async function ContentsBottomArea() {
   </>
 }
 
+export async function PageContents(param: {selectedCategory: number | undefined}) {
+  return <>
+    <ContentsTopArea />
+    <ContentsBottomArea selectedCategory={param.selectedCategory} />
+  </>
+}
+
 export default async function Page() {
-  return (
-    <>
-      <ContentsTopArea />
-      <ContentsBottomArea />
-    </>
-  )
+  return <PageContents selectedCategory={undefined} />;
 }

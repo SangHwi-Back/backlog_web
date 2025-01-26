@@ -1,8 +1,8 @@
 'use client';
 
 import GrayRoundedSearchTextField from "./GrayRoundedSearchTextField";
-import {useDispatch} from "react-redux";
-import {setToastData} from "../../../store/mainSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {setProgrammingCategory, setToastData} from "../../../store/mainSlice";
 import Image from 'next/image';
 import pencil from '../../../../public/pencil.svg';
 import filterOnImage from '../../../../public/filterOn.svg';
@@ -12,6 +12,7 @@ import sortOffImage from '../../../../public/sortOff.svg';
 import styles from './mainTopArea.module.css';
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {RootState} from "../../../store/store";
 
 enum State {
   on, off
@@ -32,6 +33,7 @@ namespace State {
 export default function MainTopArea() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const selectedProgrammingCategory = useSelector((state: RootState) => state.main).selectedProgrammingCategory;
   const [filterState, setFilterState] = useState<State>(State.off);
   const [sortState, setSortState] = useState<State>(State.off);
   
@@ -62,8 +64,19 @@ export default function MainTopArea() {
     router.push('/insert');
   }
   
+  const handleCategoryClick = (category: number) => {
+    dispatch(setProgrammingCategory(category));
+    router.push(`/query-content/${category}`);
+  }
+  
   return <div className={`${styles.background} ${styles.backgroundBetween}`}>
     <GrayRoundedSearchTextField placeholder={'검색'}/>
+    <div className={styles.subMenuArea}>
+      <p className={selectedProgrammingCategory === 0 ? styles.selected : styles.deselected}
+         onClick={() => handleCategoryClick(0)}>iOS</p>
+      <p className={selectedProgrammingCategory === 1 ? styles.selected : styles.deselected}
+         onClick={() => handleCategoryClick(1)}>Web-FE</p>
+    </div>
     <div className={styles.buttonGroup}>
       {/* Insert Icon */}
       <ButtonWithIcon src={icons.pencil} text={'Write'}

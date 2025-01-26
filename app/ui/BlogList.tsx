@@ -19,8 +19,8 @@ function Item(props: {item: BlogRow}) {
     </div>;
 }
 
-export default async function BlogList() {
-    const rows: BlogRow[] = await Rows(1);
+export default async function BlogList({selectedCategory}: {selectedCategory: number | undefined}) {
+    const rows: BlogRow[] = await Rows(selectedCategory || 1);
     
     return <Suspense fallback={<div/>}>
         <div className={styles.localGrid}>

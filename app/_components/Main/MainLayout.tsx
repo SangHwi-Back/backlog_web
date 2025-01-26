@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 import style from './layout.module.css';
 import MainMenuBar from "./MainMenuBar";
-import MainSidebar from "./MainSidebar";
+// import MainSidebar from "./MainSidebar";
 import MainNavigationBar from "./MainNavigationBar";
 import MainThumbnail from "./MainThumbnail";
 
@@ -19,7 +19,7 @@ export default function MainLayout({ children }: Props) {
       </div>
       {/*------------Contents------------*/}
       <div className={style.main}>
-        <MainSidebar/>
+        {/*<MainSidebar/>*/}
         <main className={style.content}>
           {children}
         </main>
