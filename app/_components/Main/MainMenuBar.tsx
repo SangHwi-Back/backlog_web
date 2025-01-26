@@ -37,12 +37,10 @@ export default function MainMenuBar() {
   
   const dispatch = useDispatch();
   const setMenu = (menu: MainMenu) => {
-    setSelectedMenu((_: MainMenu) => {
-      dispatch(setMainMenu(menu));
-      return menu;
-    });
+    dispatch(setMainMenu(menu));
+    setSelectedMenu(menu);
   }
-  const mainSlice = useSelector((state: RootState) => state.main);
+  // const mainSlice = useSelector((state: RootState) => state.main);
   // const isMobile = mainSlice.isMobile;
   
   useEffect(() => {
@@ -52,7 +50,7 @@ export default function MainMenuBar() {
   
   return (
     <div className={style.menuBar}>
-      {[MainMenu.programming, MainMenu.books].map((menu: MainMenu, index: number) => {
+      {[MainMenu.programming, MainMenu.books].map((menu: MainMenu, _: number) => {
         const src = getMainMenuIcon(menu);
         const name = getMainMenuName(menu);
         return (

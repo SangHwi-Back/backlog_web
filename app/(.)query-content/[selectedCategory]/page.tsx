@@ -11,6 +11,6 @@ export default async function Page({
   if (selectedCategory) {
     return <PageContents selectedCategory={Number(selectedCategory)}/>;
   } else {
-    return <PageContents selectedCategory={-1}/>;
+    return <PageContents />;
   }
 }
