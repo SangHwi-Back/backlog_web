@@ -1,7 +1,6 @@
 import {ReactNode} from "react";
 import style from './layout.module.css';
 import MainMenuBar from "./MainMenuBar";
-// import MainSidebar from "./MainSidebar";
 import MainNavigationBar from "./MainNavigationBar";
 import MainThumbnail from "./MainThumbnail";
 

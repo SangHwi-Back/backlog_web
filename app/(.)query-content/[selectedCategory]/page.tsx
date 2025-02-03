@@ -1,16 +1,12 @@
-import {PageContents} from "../../page";
+import { Props } from "../../page";
+import MainContents from "../../_components/Main/MainContents";
 
-export default async function Page({
-  params
-}: {
-  params: Promise<{ selectedCategory: string | undefined }>
-}) {
-  const { selectedCategory } = await params;
-  console.log('테스트입니다', selectedCategory);
-  
-  if (selectedCategory) {
-    return <PageContents selectedCategory={Number(selectedCategory)}/>;
+export default async function SelectedCategoryPage({ params }: { params: Promise<Props> }) {
+  const categoryId = Number((await params).selectedCategory);
+
+  if (!isNaN(categoryId)) {
+    return <MainContents selectedCategory={categoryId} />;
   } else {
-    return <PageContents />;
+    return <MainContents />;
   }
 }
