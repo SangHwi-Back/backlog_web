@@ -43,9 +43,9 @@ export async function GetTwelveRows(): Promise<BlogRow[]> {
 
 export async function Rows(page: number): Promise<BlogRow[]> {
     try {
-        if (page < 0) {
-            return [];
-        }
+        // if (page < 0) {
+        //     return [];
+        // }
 
         // noinspection UnnecessaryLocalVariableJS
         const rows: BlogRow[] = Array

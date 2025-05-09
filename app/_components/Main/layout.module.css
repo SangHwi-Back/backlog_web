@@ -45,6 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 4px;
 }
 .menuBar .itemSelected {
     flex: 1;
@@ -54,6 +55,7 @@
     color: black;
     align-items: center;
     justify-content: center;
+    gap: 4px;
 }
 
 .main {
