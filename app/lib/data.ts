@@ -1,7 +1,6 @@
 'use server';
 import {z} from 'zod';
 import type {BlogRow, BlogRowData} from "./dto";
-import {sql} from "@vercel/postgres";
 import {revalidatePath} from "next/cache";
 import {redirect} from "next/navigation";
 import {randomUUID} from "crypto";
@@ -133,17 +132,16 @@ export async function InsertRow(prevState: InsertParam, formData: FormData) {
             };
         }
 
-        const { title, description } = fields.data;
-
-        await sql`
-            INSERT INTO blogrow (key, title, date, time, author)
-            VALUES (uuid_generate_v4(), ${title}, current_date, current_time, 'me' )
-        `;
-
-        await sql`
-            INSERT INTO data_blogrow (key, title, description, date, time, author)
-            VALUES (uuid_generate_v4(), ${title}, ${description}, current_date, current_time, 'me')
-        `;
+        // const { title, description } = fields.data;
+        // await sql`
+        //     INSERT INTO blogrow (key, title, date, time, author)
+        //     VALUES (uuid_generate_v4(), ${title}, current_date, current_time, 'me' )
+        // `;
+        //
+        // await sql`
+        //     INSERT INTO data_blogrow (key, title, description, date, time, author)
+        //     VALUES (uuid_generate_v4(), ${title}, ${description}, current_date, current_time, 'me')
+        // `;
 
         revalidatePath('/');
         redirect('/');
