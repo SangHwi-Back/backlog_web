@@ -5,8 +5,8 @@ import {useEffect, useState} from "react";
 import {setIsMobile, setMainMenu} from "../../store/mainSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import books from '../../../public/books.svg'
-import programming from '../../../public/programming.svg'
+import books from '../../../../public/books.svg'
+import programming from '../../../../public/programming.svg'
 import Image from "next/image";
 
 export enum MainMenu { programming, books }
@@ -34,7 +34,7 @@ export function getMainMenuURLPath(menu: MainMenu): string {
 export default function MainMenuBar() {
   const menuState: number = useSelector((state: RootState) => state.main.selectedMenu);
   const [selectedMenu, setSelectedMenu] = useState<MainMenu>(menuState);
-  
+
   const dispatch = useDispatch();
   const setMenu = (menu: MainMenu) => {
     dispatch(setMainMenu(menu));
@@ -42,12 +42,12 @@ export default function MainMenuBar() {
   }
   // const mainSlice = useSelector((state: RootState) => state.main);
   // const isMobile = mainSlice.isMobile;
-  
+
   useEffect(() => {
     dispatch(setIsMobile(window.matchMedia("(max-width: 600px)").matches));
     return () => {};
   }, [dispatch]);
-  
+
   return (
     <div className={style.menuBar}>
       {[MainMenu.programming, MainMenu.books].map((menu: MainMenu, _: number) => {
