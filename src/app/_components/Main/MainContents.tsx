@@ -9,9 +9,9 @@ import { Props } from '../../page';
 async function ContentsBottomArea({ selectedCategory }: Props) {
   const number = await RowNumbers();
   return <>
-    <Box sx={{flexGrow: 1}}>
+    <div className={'w-full min-h-screen'}>
       <BlogList selectedCategory={selectedCategory ?? -1}/>
-    </Box>
+    </div>
     <Suspense fallback={<div style={{height: '24px'}}>wait</div>}>
       <PagingComponent rowNumber={number}/>
     </Suspense>
