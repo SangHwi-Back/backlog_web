@@ -5,31 +5,8 @@ import {useEffect, useState} from "react";
 import {setIsMobile, setMainMenu} from "../../store/mainSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
-import books from '../../../../public/books.svg'
-import programming from '../../../../public/programming.svg'
 import Image from "next/image";
-
-export enum MainMenu { programming, books }
-export const MainMenus: MainMenu[] = [MainMenu.programming, MainMenu.books];
-
-export function getMainMenuName(menu: MainMenu) {
-  switch(menu) {
-    case MainMenu.programming: return 'Programming';
-    case MainMenu.books: return 'Books';
-  }
-}
-export function getMainMenuIcon(menu: MainMenu): string {
-  switch(menu) {
-    case MainMenu.programming: return programming;
-    case MainMenu.books: return books;
-  }
-}
-export function getMainMenuURLPath(menu: MainMenu): string {
-  switch(menu) {
-    case MainMenu.programming: return '/programming';
-    case MainMenu.books: return '/book';
-  }
-}
+import {getMainMenuIcon, getMainMenuName, MainMenu} from "./MainMenus";
 
 export default function MainMenuBar() {
   const menuState: number = useSelector((state: RootState) => state.main.selectedMenu);
@@ -40,8 +17,6 @@ export default function MainMenuBar() {
     dispatch(setMainMenu(menu));
     setSelectedMenu(menu);
   }
-  // const mainSlice = useSelector((state: RootState) => state.main);
-  // const isMobile = mainSlice.isMobile;
 
   useEffect(() => {
     dispatch(setIsMobile(window.matchMedia("(max-width: 600px)").matches));
