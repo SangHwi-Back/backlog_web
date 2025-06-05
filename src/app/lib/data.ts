@@ -41,34 +41,30 @@ export async function GetTwelveRows(): Promise<BlogRow[]> {
     }
 }
 
-export async function Rows(page: number): Promise<BlogRow[]> {
+export async function Rows(
+  page: number,
+  search: string
+): Promise<BlogRow[]> {
     try {
-        // if (page < 0) {
-        //     return [];
-        // }
-
-        // noinspection UnnecessaryLocalVariableJS
-        const rows: BlogRow[] = Array
-            .from({ length: 20 }, () => ({
-                key: randomUUID(),
-                title: Array.from({ length: 5 }, randomWord).join(' '),
-                date: randomDate(),
-                time: randomDate(),
-                author: Array.from({ length: 2 }, randomWord).join(' '),
-                tags: Array.from({ length: Math.floor(Math.random() * 3) + 3 }, randomWord),
-            }))
-            .slice((page) * 6, (page + 1) * 6);
-
-        return rows;
+        return Array
+          .from({length: (search.length > 5 ? 3 : 20)}, () => ({
+              key: randomUUID(),
+              title: Array.from({length: 5}, randomWord).join(' '),
+              date: randomDate(),
+              time: randomDate(),
+              author: Array.from({length: 2}, randomWord).join(' '),
+              tags: Array.from({length: Math.floor(Math.random() * 3) + 3}, randomWord),
+          }))
+          .slice((page) * 6, (page + 1) * 6);
     } catch (error) {
         throw error;
     }
 }
 
-export async function RowNumbers(): Promise<number> {
+export async function RowNumbers(length: number): Promise<number> {
     try {
-        let remainder = 20 % 6 > 0 ? 1 : 0;
-        return Math.floor(20 / 6) + remainder;
+        let remainder = length % 6 > 0 ? 1 : 0;
+        return Math.floor(length / 6) + remainder;
     } catch (error) {
         throw error;
     }
