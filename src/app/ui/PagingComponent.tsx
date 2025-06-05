@@ -7,6 +7,7 @@ import {setCurrentPage} from "../store/mainSlice";
 
 export default function PagingComponent({rowNumber}: { rowNumber: number }) {
     const currentPage = useSelector((state: RootState) => state.main.currentPage);
+    const currentSearchText = useSelector((state: RootState) => state.search.searchText);
     const dispatch = useDispatch();
     const router = useRouter();
     
@@ -20,6 +21,7 @@ export default function PagingComponent({rowNumber}: { rowNumber: number }) {
     }
     
     return <>
+        {currentSearchText && <p style={{color: '#000000'}}>검색어: {currentSearchText}</p>}
         <div style={{display: 'flex', gap: '5px', justifyContent: 'center', margin: 10}}>
             <button style={{color: 'black'}} onClick={() => onButtonClicked(currentPage - 1)}>{'<'}</button>
             {Array.from({length: rowNumber}, (_, i) => {
