@@ -118,6 +118,7 @@ export default function MainTopArea() {
 
   const handleCategoryClick = (category: number) => {
     dispatch(setProgrammingCategory(category));
+    // TODO: category 변경시, query content로 이동.
     router.push(`/query-content/${category}`);
   }
 
