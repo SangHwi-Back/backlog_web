@@ -22,3 +22,20 @@ export type ResultOfBlogRow = {
     blogRow: BlogRow;
     data: BlogRowData;
 }
+
+export type InsertBlogDTO = {
+    title: string;
+    description: string;
+    categories: string[];
+    author: string;
+    date: string;
+    time: string;
+}
+
+export type InsertBlogResponse = {
+    success: boolean;
+    message?: string;
+    error?: string;
+    data?: BlogRow;
+}
+

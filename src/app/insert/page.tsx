@@ -6,6 +6,14 @@ import Form from "next/form";
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { useRouter } from 'next/navigation';
 import { markdownPreviewStyles } from "./(style)/markdownPreviewStyles";
+import { InsertBlogDTO, InsertBlogResponse } from "../lib/dto";
+import { BackButton } from "../_components/Insert/BackButton";
+import { SaveDraftButton } from "../_components/Insert/SaveDraftButton";
+import { PublishButton } from "../_components/Insert/PublishButton";
+import { TitleLabel } from "../_components/Insert/TitleLabel";
+import { CategoryAddButton } from "../_components/Insert/CategoryAddButton";
+import { SwitchLayoutButton } from "../_components/Insert/SwitchLayoutButton";
+import { CategoryList } from "../_components/Insert/CategoryList";
 
 export default function Page() {
   const router = useRouter();
@@ -16,6 +24,7 @@ export default function Page() {
   const [categories, setCategories] = useState<string[]>([]);
   const [newCategory, setNewCategory] = useState('');
   const [isVerticalLayout, setIsVerticalLayout] = useState(true);
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
     const adjustHeight = () => {
@@ -39,118 +48,55 @@ export default function Page() {
     };
   }, []);
 
-  const HandleAddCategory = () => {
+  const handleAddCategory = () => {
     if (newCategory && !categories.includes(newCategory)) {
       setCategories([...categories, newCategory]);
       setNewCategory('');
     }
   };
 
-  const HandleRemoveCategory = (categoryToRemove: string) => {
+  const handleRemoveCategory = (categoryToRemove: string) => {
     setCategories(categories.filter(category => category !== categoryToRemove));
   };
 
-  const BackButton = () => {
-    return (
-      <button className="flex items-center text-gray-600 hover:text-gray-900 hover:cursor-pointer" onClick={() => router.back()}>
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        <span>Back</span>
-      </button>
-    )
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const SaveDraftButton = () => {
-    return (
-      <button className="px-4 py-2 text-gray-600 hover:text-gray-900 flex items-center hover:cursor-pointer">
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-        </svg>
-        Save Draft
-      </button>
-    )
-  }
+    const now = new Date();
+    const blogData: InsertBlogDTO = {
+      title,
+      description: contents,
+      categories,
+      author: "Anonymous", // TODO: Replace with actual user
+      date: now.toISOString().split('T')[0],
+      time: now.toTimeString().split(' ')[0]
+    };
 
-  const PublishButton = () => {
-    return (
-      <button className="px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-800 hover:cursor-pointer">
-        Publish
-      </button>
-    )
-  }
+    try {
+      const response = await fetch('/api/blog/insert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(blogData),
+      });
 
-  const TitleLabel = ({ text }: { text: string }) => {
-    return (
-      <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-        <span className="inline-block bg-gray-900 text-white px-3 py-1 rounded-md mr-2 font-bold">{text}</span>
-      </h2>
-    )
-  }
+      const result: InsertBlogResponse = await response.json();
 
-  const CategoryAddButton = () => {
-    return (
-      <button
-        type="button"
-        onClick={HandleAddCategory}
-        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 hover:cursor-pointer"
-      >
-        Add
-      </button>
-    )
-  }
-
-  const SwitchLayoutButton = () => {
-    const SwitchIcon = () => {
-      return (
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      )
+      if (result.success) {
+        router.push(`/detail/${result.data?.key}`);
+      } else {
+        // Handle error
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.error('Failed to submit blog:', error);
     }
-
-    return (
-      <div className="flex justify-end mb-4">
-        <button
-          type="button"
-          onClick={() => setIsVerticalLayout(!isVerticalLayout)}
-          className="flex items-center px-3 py-2 text-gray-600 hover:text-gray-900 bg-gray-100 rounded-md hover:bg-gray-200 hover:cursor-pointer"
-        >
-          <SwitchIcon />
-          {isVerticalLayout ? 'Switch to Horizontal Layout' : 'Switch to Vertical Layout'}
-        </button>
-      </div>
-    )
-  }
-
-  const CategoryList = () => {
-    return (
-      <div className="flex flex-wrap gap-2 mb-2">
-        {categories.map((category) => (
-          <span
-            key={category}
-            className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100"
-          >
-            {category}
-            <button
-              type="button"
-              onClick={() => HandleRemoveCategory(category)}
-              className="ml-2 text-gray-500 hover:text-gray-700"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </span>
-        ))}
-      </div>
-    )
-  }
+  };
 
   return (
     <div className="min-h-screen bg-[#f7f5f2] p-6">
       <div className="max-w-7xl mx-auto">
-
         <div className="flex items-center justify-between mb-4">
           <BackButton />
           <div className="flex items-center gap-4">
@@ -160,7 +106,7 @@ export default function Page() {
           </div>
         </div>
 
-        <Form action={dispatch} className="space-y-6">
+        <Form action={dispatch} className="space-y-6" onSubmit={handleSubmit}>
           <div className="bg-white rounded-lg shadow-sm p-6">
             <input
               name="title"
@@ -168,11 +114,13 @@ export default function Page() {
               id="title"
               type="text"
               placeholder="Write your title here..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
 
             <div className="mb-6">
               <TitleLabel text="Categories" />
-              <CategoryList />
+              <CategoryList categories={categories} onRemoveCategory={handleRemoveCategory} />
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -181,7 +129,7 @@ export default function Page() {
                   className="flex-1 rounded-md border-gray-300 shadow-sm p-4 focus:border-gray-500 focus:ring-gray-500"
                   placeholder="Add a category..."
                 />
-                <CategoryAddButton />
+                <CategoryAddButton onClick={handleAddCategory} />
               </div>
             </div>
 
@@ -189,11 +137,16 @@ export default function Page() {
               <div className={`${isVerticalLayout ? 'w-full' : 'w-1/2'}`}>
                 <div className="flex justify-between items-center">
                   <TitleLabel text="Content" />
-                  <SwitchLayoutButton />
+                  {isVerticalLayout &&
+                    <SwitchLayoutButton
+                      isVerticalLayout={isVerticalLayout}
+                      onClick={() => setIsVerticalLayout(!isVerticalLayout)}
+                    />
+                  }
                 </div>
                 <textarea
                   ref={textAreaRef}
-                  className="w-full h-[600px] p-4 border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500"
+                  className={`w-full min-h-[${isVerticalLayout ? '300px' : '600px'}] p-4 border border-gray-300 rounded-md focus:ring-gray-500 focus:border-gray-500 resize-y`}
                   id="description"
                   name="description"
                   placeholder="Write your story here... (Markdown supported)"
@@ -202,8 +155,16 @@ export default function Page() {
                 />
               </div>
               <div className={`${isVerticalLayout ? 'w-full' : 'w-1/2'}`}>
-                <TitleLabel text="Preview" />
-                <div className="w-full h-[600px] p-4 border border-gray-300 rounded-md bg-white overflow-auto">
+                <div className="flex justify-between items-center">
+                  <TitleLabel text="Preview" />
+                  {!isVerticalLayout &&
+                    <SwitchLayoutButton
+                      isVerticalLayout={isVerticalLayout}
+                      onClick={() => setIsVerticalLayout(!isVerticalLayout)}
+                    />
+                  }
+                </div>
+                <div className={`w-full min-h-[${isVerticalLayout ? '300px' : '600px'}] p-4 border border-gray-300 rounded-md bg-white overflow-auto resize-y`}>
                   <MarkdownPreview source={contents} style={markdownPreviewStyles} />
                 </div>
               </div>
