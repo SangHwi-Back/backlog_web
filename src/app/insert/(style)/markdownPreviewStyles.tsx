@@ -1,0 +1,35 @@
+'use client';
+import React from "react";
+
+// Add custom styles for MarkdownPreview
+export const markdownPreviewStyles = {
+  '--color-canvas-default': 'transparent',
+  '--color-canvas-subtle': 'transparent',
+  '--color-border-default': '#d0d7de',
+  '--color-border-muted': '#d0d7de',
+  '--color-fg-default': '#24292f',
+  '--color-fg-muted': '#57606a',
+  '--color-neutral-muted': 'rgba(175, 184, 193, 0.2)',
+  '--color-accent-fg': '#0969da',
+  '--color-accent-emphasis': '#0969da',
+  '--color-attention-subtle': 'rgba(234, 179, 8, 0.15)',
+  '--color-danger-subtle': 'rgba(212, 72, 72, 0.15)',
+  '--color-done-subtle': 'rgba(34, 134, 58, 0.15)',
+  '--color-severe-subtle': 'rgba(234, 74, 170, 0.15)',
+  '--color-success-subtle': 'rgba(34, 134, 58, 0.15)',
+  '--color-ul': '#24292f',
+  '--color-ol': '#24292f',
+  '--color-table-border': '#d0d7de',
+  '--color-table-header-bg': '#f6f8fa',
+  '--color-table-row-bg': 'transparent',
+  '--color-table-row-bg-hover': '#f6f8fa',
+  'color': 'black',
+  '--md-color-ul': '#24292f',
+  '--md-color-ol': '#24292f',
+  '--md-color-li': '#24292f',
+  '--md-color-li-bg': 'transparent',
+  '--md-color-li-border': '#d0d7de',
+  '--md-color-li-hover': '#f6f8fa',
+  '--md-color-li-hover-bg': '#f6f8fa',
+  '--md-color-li-hover-border': '#d0d7de',
+} as React.CSSProperties;

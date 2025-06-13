@@ -14,6 +14,25 @@ const nextConfig = {
       plugins: [...config.plugins],
     }
   },
+  // Add cache control headers
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, must-revalidate',
+          },
+        ],
+      },
+    ];
+  },
+  // Disable static optimization for development
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['@uiw/react-markdown-preview'],
+  },
 };
 
 export default nextConfig;
