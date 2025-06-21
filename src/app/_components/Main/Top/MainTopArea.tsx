@@ -1,133 +1,84 @@
 'use client';
 
 import GrayRoundedSearchTextField from "./GrayRoundedSearchTextField";
-import {useDispatch, useSelector} from "react-redux";
-import {setProgrammingCategory, setToastData} from "@/app/store/mainSlice";
-import Image from 'next/image';
+import { useDispatch, useSelector } from "react-redux";
+import { setProgrammingCategory, setToastData } from "@/app/store/mainSlice";
 import styles from './mainTopArea.module.css';
-import {useState} from "react";
-import {useRouter} from "next/navigation";
-import {RootState} from "@/app/store/store";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { RootState } from "@/app/store/store";
+import SubMenuBar from './SubMenuBar';
+import UtilityIconsWithText, { State } from './UtilityIconsWithText';
 
-enum State {
-  on, off
-}
-
-namespace State {
-  export function toggled(state: State): State {
-    return state === State.on ? State.off : State.on;
-  }
-  export function filterImage(isOn: boolean): string {
-    return isOn ? '/filterOn.svg' : '/filterOff.svg';
-  }
-  export function sortImage(isOn: boolean): string {
-    return isOn ? '/sortOn.svg' : '/sortOff.svg';
-  }
-}
-
-const SubMenuBar = (
-  {
-    currentCategory,
-    handleCategoryClick
-  }: {
-    currentCategory: number,
-    handleCategoryClick: (category: number) => void}
-) => {
-  return (
-    <div className={styles.subMenuArea}>
-      <p className={currentCategory === 0 ? styles.selected : styles.deselected}
-         onClick={() => handleCategoryClick(0)}>iOS</p>
-      <p className={currentCategory === 1 ? styles.selected : styles.deselected}
-         onClick={() => handleCategoryClick(1)}>Web-FE</p>
-    </div>
-  )
-}
-
-const ButtonWithIcon = ({ src, text, onClick }: {src: string, text: string, onClick: ()=>void}) => (
-  <div className={styles.buttonArea} onClick={onClick}>
-    <Image id="thumbnail" src={src} alt={text} width={20} height={20} />
-    <p id="title">{text}</p>
-  </div>
-);
-
-interface UtilityBarButtonState {
-  filterState: State;
-  sortState: State;
-}
-
-interface UtilityBarButtonOnChange {
-  onInsert: () => void;
-  onFilter: () => void;
-  onSort: () => void;
-}
-
-interface UtilityProps {
-  state: UtilityBarButtonState,
-  onChange: UtilityBarButtonOnChange,
-}
-
-const UtilityIconsWithText = (props: UtilityProps) => {
-  const {state, onChange} = props;
-  const icons = [
-    {
-      icon: '/pencil.svg',
-      text: 'Write',
-      onClick: onChange.onInsert
-    },
-    {
-      icon: State.filterImage(state.filterState === State.on),
-      text: 'Filter',
-      onClick: onChange.onFilter
-    },
-    {
-      icon: State.sortImage(state.sortState === State.on),
-      text: 'Sort',
-      onClick: onChange.onSort
-    }
-  ];
-  
-  return (
-    <div className={styles.buttonGroup}>
-      {icons.map((icon) => {
-        return <ButtonWithIcon key={icon.text} src={icon.icon} text={icon.text} onClick={icon.onClick}/>;
-      })}
-    </div>
-  )
-}
-
+/**
+ * MainTopArea component serves as the main navigation and search area
+ * at the top of the application. It includes:
+ * - Search field
+ * - Category navigation
+ * - Utility buttons (Write, Filter, Sort)
+ */
 export default function MainTopArea() {
   const router = useRouter();
   const dispatch = useDispatch();
+
+  // Get the current category from Redux store
   const currentCategory = useSelector((state: RootState) => state.main).selectedProgrammingCategory;
+
+  // State for filter and sort buttons
   const [filterState, setFilterState] = useState<State>(State.off);
   const [sortState, setSortState] = useState<State>(State.off);
-  
+
+  /**
+   * Handle filter button click
+   * Toggles filter state and navigates to menu page
+   */
   const handleFilterClick = () => {
     setFilterState(State.toggled(filterState));
     router.push('/menu');
   };
 
+  /**
+   * Handle sort button click
+   * Toggles sort state and shows a toast notification
+   */
   const handleSortClick = () => {
     setSortState(State.toggled(sortState));
     dispatch(setToastData({ title: 'Test Title', message: 'Test Message' }));
   };
 
+  /**
+   * Handle insert/write button click
+   * Navigates to the insert page
+   */
   const handleInsertClick = () => {
     router.push('/insert');
   }
 
+  /**
+   * Handle category selection
+   * Updates the selected category in Redux and navigates to the corresponding page
+   * @param category - The index of the selected category
+   */
   const handleCategoryClick = (category: number) => {
     dispatch(setProgrammingCategory(category));
-    // TODO: category 변경시, query content로 이동.
     router.push(`/query-content/${category}`);
   }
 
-  return <div className={`${styles.background} ${styles.backgroundBetween}`}>
-    <GrayRoundedSearchTextField placeholder={'검색'}/>
-    <SubMenuBar currentCategory={currentCategory} handleCategoryClick={handleCategoryClick}/>
-    <UtilityIconsWithText
-      state={{filterState, sortState}}
-      onChange={{onInsert: handleInsertClick, onFilter: handleFilterClick, onSort: handleSortClick}}
-    />
-  </div>
+  return (
+    <div className={`${styles.background} ${styles.backgroundBetween}`}>
+      <GrayRoundedSearchTextField placeholder={'검색'}/>
+      <SubMenuBar
+        currentCategory={currentCategory}
+        handleCategoryClick={handleCategoryClick}
+      />
+      <UtilityIconsWithText
+        state={{filterState, sortState}}
+        onChange={{
+          onInsert: handleInsertClick,
+          onFilter: handleFilterClick,
+          onSort: handleSortClick
+        }}
+      />
+    </div>
+  );
 }

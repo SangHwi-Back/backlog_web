@@ -17,8 +17,7 @@ export default function BlogList() {
     useEffect(() => {
         const timer = setTimeout(async () => {
             const rows: BlogRow[] = await Rows(0, searchText || '');
-            const rowNumber = await RowNumbers(rows.length);
-            setNumberOfRows(await RowNumbers(20));
+            setNumberOfRows(await RowNumbers(searchText || ''));
             setRows(rows);
         }, 300);
         

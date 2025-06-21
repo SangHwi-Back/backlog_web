@@ -4,7 +4,6 @@ export type BlogRow = {
     key: UUID;
     title: string;
     date: string;
-    time: string;
     author: string;
     tags: string[];
 }
@@ -14,7 +13,6 @@ export type BlogRowData = {
     title: string;
     description: string;
     date: string;
-    time: string;
     author: string;
 }
 
